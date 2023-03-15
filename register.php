@@ -9,7 +9,7 @@ try{
 } catch(PDOException $e) {
     die('Une erreur est survenue: '. $e->getMessage());
 }
-['login' => $login,'mdp' => $mdp] = $_POST;
+['email' => $login,'mdp' => $mdp] = $_POST;
 // $statement = $pdo->query("SELECT * FROM L_Users_films 
 //                 JOIN Films ON film_id = Films.id 
 //                 Join Users ON user_id = Users.id");
