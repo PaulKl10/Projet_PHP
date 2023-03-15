@@ -5,11 +5,11 @@ require_once 'layout/header_defaut.php';?>
 <div class="w-25 m-auto mt-5">
     <form action="dashboard.php" method="POST">
         <div class="form-floating mb-3">
-          <input type="email" name="email" class="form-control bg-black" id="floatingInput" placeholder="name@example.com">
+          <input type="email" name="email" class="form-control bg-black text-white" id="floatingInput" placeholder="name@example.com">
           <label class="text-warning" for="floatingInput">Email address</label>
         </div>
         <div class="form-floating">
-          <input type="password" name="mdp" class="form-control bg-black" id="floatingPassword" placeholder="Password">
+          <input type="password" name="mdp" class="form-control bg-black text-white" id="floatingPassword" placeholder="Password">
           <label class="text-warning" for="floatingPassword">Password</label>
         </div>
         <div class="text-center mt-4">
