@@ -15,12 +15,17 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <?php
+      if(isset($_SESSION)){?>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav m-auto fs-3 gap-5">
           <a class="nav-link" aria-current="page" href="movies.php">Movies</a>
           <a class="nav-link" aria-current="page" href="series.php">Series</a>
           <a class="nav-link" aria-current="page" href="animes.php">Animes</a>
         </div>
       </div>
+      <?php
+      }
+      ?>
     </div>
   </nav>

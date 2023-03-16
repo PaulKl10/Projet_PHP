@@ -1,11 +1,11 @@
 <?php
-require_once 'layout/header_defaut.php';?>
+require_once 'layout/header.php';?>
 <h1 class="text-center text-warning mt-5">Bienvenue sur Oh my count</h1>
 <p class="text-center text-warning mt-4">Une application web permettant de recenser tous vos films, séries et animés !</p>
 <div class="w-25 m-auto mt-5">
     <form action="dashboard.php" method="POST">
         <div class="form-floating mb-3">
-          <input type="text" name="email" class="form-control bg-black text-white" id="floatingInput" placeholder="name@example.com">
+          <input type="text" name="pseudo" class="form-control bg-black text-white" id="floatingInput" placeholder="name@example.com">
           <label class="text-warning" for="floatingInput">Pseudo</label>
         </div>
         <div class="form-floating">
@@ -34,7 +34,7 @@ require_once 'layout/header_defaut.php';?>
             <div class="modal-body">
                 <form action="register.php" method="POST">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
+                        <input type="text" class="form-control" name="pseudo" id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Pseudo</label>
                     </div>
                     <div class="form-floating">

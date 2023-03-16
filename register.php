@@ -10,7 +10,7 @@ try{
 } catch(PDOException $e) {
     die('Une erreur est survenue: '. $e->getMessage());
 }
-['email' => $pseudo,'mdp' => $mdp] = $_POST;
+['pseudo' => $pseudo,'mdp' => $mdp] = $_POST;
 
 // Hacher le mot de passe
 $hashedPassword = password_hash($mdp, PASSWORD_DEFAULT);
