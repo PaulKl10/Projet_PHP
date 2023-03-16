@@ -9,8 +9,14 @@ try{
 } catch(PDOException $e) {
     die('Une erreur est survenue: '. $e->getMessage());
 }
-['email' => $login,'mdp' => $mdp] = $_POST;
-// $statement = $pdo->query("SELECT * FROM L_Users_films 
-//                 JOIN Films ON film_id = Films.id 
-//                 Join Users ON user_id = Users.id");
-$statement = $pdo->query("INSERT INTO Users (pseudo,mdp) VALUES ($login, $mdp)");
+['email' => $pseudo,'mdp' => $mdp] = $_POST;
+
+// Hacher le mot de passe
+$hashedPassword = password_hash($mdp, PASSWORD_DEFAULT);
+
+// Préparer la requête sql et la traiter
+$statement = $pdo->prepare("INSERT INTO Users (pseudo,mdp) VALUES (:pseudo, :mdp)");
+$statement->execute([
+    ':pseudo' => $pseudo,
+    ':mdp' => $hashedPassword
+]);

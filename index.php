@@ -5,8 +5,8 @@ require_once 'layout/header_defaut.php';?>
 <div class="w-25 m-auto mt-5">
     <form action="dashboard.php" method="POST">
         <div class="form-floating mb-3">
-          <input type="email" name="email" class="form-control bg-black text-white" id="floatingInput" placeholder="name@example.com">
-          <label class="text-warning" for="floatingInput">Email address</label>
+          <input type="text" name="email" class="form-control bg-black text-white" id="floatingInput" placeholder="name@example.com">
+          <label class="text-warning" for="floatingInput">Pseudo</label>
         </div>
         <div class="form-floating">
           <input type="password" name="mdp" class="form-control bg-black text-white" id="floatingPassword" placeholder="Password">
@@ -34,8 +34,8 @@ require_once 'layout/header_defaut.php';?>
             <div class="modal-body">
                 <form action="register.php" method="POST">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
+                        <input type="text" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Pseudo</label>
                     </div>
                     <div class="form-floating">
                         <input type="password" name="mdp" class="form-control" id="floatingPassword" placeholder="Password">
