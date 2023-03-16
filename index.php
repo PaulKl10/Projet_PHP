@@ -2,8 +2,28 @@
 require_once 'layout/header.php';?>
 <h1 class="text-center text-warning mt-5">Bienvenue sur Oh my count</h1>
 <p class="text-center text-warning mt-4">Une application web permettant de recenser tous vos films, séries et animés !</p>
+<?php
+if(isset($_GET['error'])){?>
+    <div class="alert alert-danger w-50 m-auto text-center">
+<?php switch ($_GET['error']) {
+        case "1":
+            echo "Rien n'a été entrer";
+            break;
+        
+        case "2":
+            echo "L'utilisateur n'est pas enreigstrer";
+            break;
+
+        case "3":
+            echo "Vous n'êtes pas connecter";
+            break;
+    }?>
+    </div>
+<?php    
+}
+?>
 <div class="w-25 m-auto mt-5">
-    <form action="dashboard.php" method="POST">
+    <form action="login.php" method="POST">
         <div class="form-floating mb-3">
           <input type="text" name="pseudo" class="form-control bg-black text-white" id="floatingInput" placeholder="name@example.com">
           <label class="text-warning" for="floatingInput">Pseudo</label>

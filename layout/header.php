@@ -17,13 +17,16 @@
       </button>
       <?php
       if(isset($_SESSION)){?>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav m-auto fs-3 gap-5">
-          <a class="nav-link" aria-current="page" href="movies.php">Movies</a>
-          <a class="nav-link" aria-current="page" href="series.php">Series</a>
-          <a class="nav-link" aria-current="page" href="animes.php">Animes</a>
+        <div class="collapse navbar-collapse w-100" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-lg-auto fs-3 gap-lg-5">
+            <a class="nav-link" aria-current="page" href="movies.php">Movies</a>
+            <a class="nav-link" aria-current="page" href="series.php">Series</a>
+            <a class="nav-link" aria-current="page" href="animes.php">Animes</a>
+          </div>
+          <div class="navbar-nav ms-lg-auto fs-3 gap-5">
+            <a class="nav-link" aria-current="page" href="logout.php">Log out</a>
+          </div>
         </div>
-      </div>
       <?php
       }
       ?>
