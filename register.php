@@ -1,4 +1,5 @@
 <?php
+require_once 'functions.php';
 $dsn = "mysql:host=localhost;port=8889;dbname=projet_php;charset=utf8mb4";
 
 try{
@@ -20,3 +21,5 @@ $statement->execute([
     ':pseudo' => $pseudo,
     ':mdp' => $hashedPassword
 ]);
+
+redirect('index.php');
