@@ -1,6 +1,5 @@
 <?php
 require_once 'functions.php';
-var_dump($_POST);
 if(empty($_POST['pseudo']) || empty($_POST['mdp'])){
     redirect("index.php?error=1");
 }else{
@@ -17,21 +16,32 @@ if(empty($_POST['pseudo']) || empty($_POST['mdp'])){
 }
 $pseudo = $_POST['pseudo'];
 $pass = $_POST['mdp'];
+$statement = $pdo->query("SELECT mdp FROM Users");
 
-$array_bdd= $pdo->prepare("SELECT * FROM Users WHERE pseudo = :pseudo AND mdp = :pass");
-$array_bdd->execute([
-    'pseudo' => $pseudo,
-    'pass' => $pass
-]);
-$array = $array_bdd->fetch();
+while($row = $statement->fetch()){
+    
+    $result = password_verify($pass, $row['mdp']);
+    if($result === true){
+        $array_bdd= $pdo->prepare("SELECT * FROM Users WHERE pseudo = :pseudo AND mdp = :pass");
+    $array_bdd->execute([
+        'pseudo' => $pseudo,
+        'pass' => $row['mdp']
+    ]);
+    $array = $array_bdd->fetch();
 
 
-if($array===false){
-    redirect("index.php?error=2");
+    if($array===false){
+        redirect("index.php?error=2");
+    }
+
+    session_start();
+    $_SESSION['connected'] = true;
+    redirect("dashboard.php");
+    }
 }
+redirect("index.php?error=2");
 
-session_start();
-$_SESSION['connected'] = true;
-redirect("dashboard.php");
+
+
 
 
