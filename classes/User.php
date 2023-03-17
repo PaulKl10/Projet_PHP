@@ -50,4 +50,41 @@ class User{
             ':mdp' => $hashedPassword
         ]);
     }
+
+    public function login(){
+        require_once __DIR__.'/../functions/config.php';
+        $dsn = "mysql:host=$host;port=$port;dbname=$dbName;charset=$dbCharset";
+        try{
+            $option =[
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ];
+            $pdo = new PDO($dsn, $dbUser, $dbPassword,$option);
+        } catch(PDOException $e) {
+            die('Une erreur est survenue: '. $e->getMessage());
+        }
+        $statement = $pdo->query("SELECT mdp FROM Users");
+
+        while($row = $statement->fetch()){
+            
+            $result = password_verify($this->getMdp(), $row['mdp']);
+            if($result === true){
+                $array_bdd= $pdo->prepare("SELECT * FROM Users WHERE pseudo = :pseudo AND mdp = :pass");
+            $array_bdd->execute([
+                'pseudo' => $this->pseudo,
+                'pass' => $row['mdp']
+            ]);
+            $array = $array_bdd->fetch();
+
+
+            if($array===false){
+                redirect("index.php?error=2");
+            }
+
+            session_start();
+            $_SESSION['connected'] = true;
+            redirect("dashboard.php");
+            }
+        }
+        redirect("index.php?error=2");
+    }
 }
