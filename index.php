@@ -7,15 +7,30 @@ if(isset($_GET['error'])){?>
     <div class="alert alert-danger w-50 m-auto text-center">
 <?php switch ($_GET['error']) {
         case "1":
-            echo "Rien n'a été entrer";
+            echo "Rien n'a été entré";
             break;
         
         case "2":
-            echo "L'utilisateur n'est pas enreigstrer";
+            echo "L'utilisateur n'est pas enreigstré";
             break;
 
         case "3":
-            echo "Vous n'êtes pas connecter";
+            echo "Vous n'êtes pas connecté";
+            break;
+        case "4":
+            echo "Le pseudo entré existe déjà";
+            break;
+    }?>
+    </div>
+<?php    
+}
+?>
+<?php
+if(isset($_GET['success'])){?>
+    <div class="alert alert-success w-50 m-auto text-center">
+<?php switch ($_GET['success']) {
+        case "1":
+            echo "L'enregistrement est réussi";
             break;
     }?>
     </div>

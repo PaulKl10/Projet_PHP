@@ -1,5 +1,8 @@
 <?php
 require_once 'functions.php';
+if(empty($_POST['pseudo']) || empty($_POST['mdp'])){
+    redirect("index.php?error=1");
+}else{
 $dsn = "mysql:host=localhost;port=8889;dbname=projet_php;charset=utf8mb4";
 
 try{
@@ -10,7 +13,16 @@ try{
 } catch(PDOException $e) {
     die('Une erreur est survenue: '. $e->getMessage());
 }
+}
 ['pseudo' => $pseudo,'mdp' => $mdp] = $_POST;
+
+$statement = $pdo->query("SELECT pseudo FROM Users");
+
+while($row = $statement->fetch()){
+    if($row['pseudo']===$pseudo){
+        redirect("index.php?error=4");
+    }
+}
 
 // Hacher le mot de passe
 $hashedPassword = password_hash($mdp, PASSWORD_DEFAULT);
@@ -22,4 +34,4 @@ $statement->execute([
     ':mdp' => $hashedPassword
 ]);
 
-redirect('index.php');
+redirect('index.php?success=1');
