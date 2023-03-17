@@ -1,5 +1,5 @@
 <?php
-require_once 'functions.php';
+require_once 'functions/redirect.php';
 session_start();
 if(!isset($_SESSION['connected'])){
     redirect("index.php?error=3");

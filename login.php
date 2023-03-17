@@ -1,5 +1,6 @@
 <?php
-require_once 'functions.php';
+require_once 'functions/redirect.php';
+
 if(empty($_POST['pseudo']) || empty($_POST['mdp'])){
     redirect("index.php?error=1");
 }else{
