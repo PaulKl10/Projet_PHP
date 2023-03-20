@@ -67,6 +67,7 @@ class User{
 
             session_start();
             $_SESSION['connected'] = true;
+            $_SESSION['pseudo'] = $this->getPseudo();
             redirect("dashboard.php");
             }
         }
