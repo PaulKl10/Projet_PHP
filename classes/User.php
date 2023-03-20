@@ -2,6 +2,7 @@
 require_once __DIR__.'/../functions/redirect.php';
 
 
+
 class User{
     private string $pseudo;
     private string $mdp;
@@ -22,16 +23,8 @@ class User{
     }
 
     public function add(){
-        require_once __DIR__.'/../functions/config.php';
-        $dsn = "mysql:host=$host;port=$port;dbname=$dbName;charset=$dbCharset";
-        try{
-            $option =[
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-            ];
-            $pdo = new PDO($dsn, $dbUser, $dbPassword,$option);
-        } catch(PDOException $e) {
-            die('Une erreur est survenue: '. $e->getMessage());
-        }
+        require_once __DIR__.'/../data/bdd_link.php';
+
         $statement = $pdo->query("SELECT pseudo FROM Users");
 
         while($row = $statement->fetch()){
@@ -52,16 +45,8 @@ class User{
     }
 
     public function login(){
-        require_once __DIR__.'/../functions/config.php';
-        $dsn = "mysql:host=$host;port=$port;dbname=$dbName;charset=$dbCharset";
-        try{
-            $option =[
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-            ];
-            $pdo = new PDO($dsn, $dbUser, $dbPassword,$option);
-        } catch(PDOException $e) {
-            die('Une erreur est survenue: '. $e->getMessage());
-        }
+        require_once __DIR__.'/../data/bdd_link.php';
+        
         $statement = $pdo->query("SELECT mdp FROM Users");
 
         while($row = $statement->fetch()){

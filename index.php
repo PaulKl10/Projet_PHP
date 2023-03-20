@@ -35,12 +35,15 @@ if(isset($_GET['success'])){?>
         case "1":
             echo "L'enregistrement est réussi";
             break;
+        case "2":
+            echo "Vous êtes bien déconnecté";
+            break;
     }?>
     </div>
 <?php    
 }
 ?>
-<div class="w-25 m-auto mt-5">
+<div class="w-50 px-5 m-auto mt-5">
     <form action="login.php" method="POST">
         <div class="form-floating mb-3">
           <input required type="text" name="pseudo" class="form-control bg-black text-white" id="floatingInput" placeholder="name@example.com">
