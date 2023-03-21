@@ -1,12 +1,13 @@
 <?php
-require_once __DIR__.'/../functions/redirect.php';
+require_once __DIR__ . '/../functions/redirect.php';
 
 
 
-class User{
+class User
+{
     private string $pseudo;
     private string $mdp;
-    
+
 
     public function __construct($pseudo, $mdp)
     {
@@ -14,21 +15,24 @@ class User{
         $this->mdp = $mdp;
     }
 
-    public function getPseudo(): string{
+    public function getPseudo(): string
+    {
         return $this->pseudo;
     }
 
-    public function getMdp(): string{
+    public function getMdp(): string
+    {
         return $this->mdp;
     }
 
-    public function add(){
-        require_once __DIR__.'/../data/bdd_link.php';
+    public function add()
+    {
+        require_once __DIR__ . '/../data/bdd_link.php';
 
         $statement = $pdo->query("SELECT pseudo FROM Users");
 
-        while($row = $statement->fetch()){
-            if($row['pseudo']===$this->getPseudo()){
+        while ($row = $statement->fetch()) {
+            if ($row['pseudo'] === $this->getPseudo()) {
                 redirect("index.php?error=4");
             }
         }
@@ -44,31 +48,23 @@ class User{
         ]);
     }
 
-    public function login(){
-        require_once __DIR__.'/../data/bdd_link.php';
-        
-        $statement = $pdo->query("SELECT mdp FROM Users");
+    public function login()
+    {
+        require_once __DIR__ . '/../data/bdd_link.php';
 
-        while($row = $statement->fetch()){
-            
-            $result = password_verify($this->getMdp(), $row['mdp']);
-            if($result === true){
-                $array_bdd= $pdo->prepare("SELECT * FROM Users WHERE pseudo = :pseudo AND mdp = :pass");
-            $array_bdd->execute([
-                'pseudo' => $this->pseudo,
-                'pass' => $row['mdp']
-            ]);
-            $array = $array_bdd->fetch();
+        $statement = $pdo->prepare("SELECT mdp FROM Users WHERE pseudo = :pseudo");
+        $statement->execute([
+            ':pseudo' => $this->getPseudo()
+        ]);
+        $motdepasse = $statement->fetch();
 
-
-            if($array===false){
-                redirect("index.php?error=2");
-            }
-
-            session_start();
-            $_SESSION['connected'] = true;
-            $_SESSION['pseudo'] = $this->getPseudo();
-            redirect("dashboard.php");
+        if ($motdepasse) {
+            $result = password_verify($this->getMdp(), $motdepasse['mdp']);
+            if ($result === true) {
+                session_start();
+                $_SESSION['connected'] = true;
+                $_SESSION['pseudo'] = $this->getPseudo();
+                redirect("dashboard.php");
             }
         }
         redirect("index.php?error=2");
