@@ -13,19 +13,35 @@
 <body class='bg-black'>
   <nav class="navbar navbar-dark navbar-expand-lg bg-black">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Oh my count</a>
+      <a class="navbar-brand" href="dashboard.php">Oh my count</a>
       <?php
       if (isset($_SESSION)) { ?>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse w-100" id="navbarNavAltMarkup">
-          <div class="navbar-nav ms-lg-auto fs-3 gap-lg-5">
+          <div class="navbar-nav ms-lg-auto fs-3 gap-5">
             <a class="nav-link" aria-current="page" href="movies.php">Movies</a>
             <a class="nav-link" aria-current="page" href="series.php">Series</a>
             <a class="nav-link" aria-current="page" href="animes.php">Animes</a>
-          </div>
-          <div class="navbar-nav ms-lg-auto fs-3 gap-5">
+            <div class="d-flex">
+              <a href="dashboard.php" class="nav-link text-white"><?php echo $_SESSION['pseudo'] ?></a>
+              <?php
+              require 'data/bdd_link.php';
+              $statement = $pdo->prepare("SELECT photo FROM Users WHERE pseudo = :pseudo");
+              $statement->execute([
+                'pseudo' => $_SESSION['pseudo']
+              ]);
+              $picture = $statement->fetch();
+              if ($picture['photo'] === NULL) { ?>
+                <img class="profile my-auto" src="assets/images/defaut.jpeg" alt="defaut">
+              <?php
+              } else { ?>
+                <img class="profile my-auto" src="assets/images/profile_pic/<?php echo $picture['photo'] ?>" alt="photo">
+              <?php
+              }
+              ?>
+            </div>
             <a class="nav-link" aria-current="page" href="logout.php">Log out</a>
           </div>
         </div>
