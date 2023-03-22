@@ -1,9 +1,22 @@
 <?php
 require_once 'functions/redirect.php';
+require_once 'functions/uploadPic.php';
 session_start();
 if (!isset($_SESSION['connected'])) {
     redirect("index.php?error=3");
 }
+require_once 'classes/projection/Serie.php';
+require_once 'classes/User.php';
+
+if (isset($_FILES['file'])) {
+    $photo = uploadPic($_FILES['file'], 'assets/images/Series/');
+    $titre = $_POST['titre'];
+    $duree = $_POST['duree'];
+    $nb_saison = $_POST['nb_saison'];
+    $movie = new Serie($titre, $photo, $duree, new User($_SESSION['pseudo'], $_SESSION['mdp']), $nb_saison);
+    $movie->addToBdd();
+}
+
 require_once 'layout/header.php'; ?>
 
 <h1 class="text-warning text-center my-5">Series</h1>

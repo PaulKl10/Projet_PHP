@@ -1,22 +1,16 @@
 <?php
 require_once __DIR__ . '/../Projection.php';
 require_once __DIR__ . '/../User.php';
+require_once __DIR__ . '/../../functions/redirect.php';
 
 
 
 class Movie extends Projection
 {
-    private User $user;
 
     public function __construct(string $titre, string $photo, string $duree, User $user)
     {
-        parent::__construct($titre, $photo, $duree);
-        $this->user = $user;
-    }
-
-    public function getUser()
-    {
-        return $this->user;
+        parent::__construct($titre, $photo, $duree, $user);
     }
 
     public function addToBdd()
@@ -47,5 +41,7 @@ class Movie extends Projection
             'user_id' => $user_id['id'],
             'film_id' => $film_id['id']
         ]);
+
+        redirect('dashboard.php?success=1');
     }
 }

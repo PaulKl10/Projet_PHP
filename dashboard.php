@@ -1,6 +1,7 @@
 <?php
 require_once 'functions/redirect.php';
 require_once 'functions/countProjection.php';
+require_once 'functions/showProjection.php';
 session_start();
 if (!isset($_SESSION['connected'])) {
     redirect("index.php?error=3");
@@ -25,6 +26,14 @@ if (isset($_GET['error'])) { ?>
                 echo "Mauvaise extension ou taille trop grande";
                 break;
         } ?>
+    </div>
+<?php
+}
+?>
+<?php
+if (isset($_GET['success']) && $_GET['success'] === '1') { ?>
+    <div class="alert alert-success w-50 m-auto text-center">
+        Votre enregistrement à bien eu lieu
     </div>
 <?php
 }
@@ -83,38 +92,19 @@ if (isset($_GET['error'])) { ?>
     <div class="col">
         <h3>Films</h3>
         <h5><?php echo countProjection('L_Users_films', 'Films', 'film_id'); ?></h5>
-        <?php
-        $statement = $pdo->prepare("SELECT * FROM L_Users_films 
-                                        JOIN Films ON film_id = Films.id 
-                                        JOIN Users ON user_id = Users.id
-                                    WHERE user_id = (
-                                    SELECT id FROM Users WHERE pseudo = :pseudo
-                                    )");
-        $statement->execute([
-            'pseudo' => $_SESSION['pseudo']
-        ]); ?>
-        <div class="row row-cols-1 gap-4 my-4">
-            <?php
-            while ($row = $statement->fetch()) { ?>
-                <div class="d-flex flex-column justify-content-center align-items-center">
-                    <img class="movieList" src="assets/images/movies/<?php echo $row['photo'] ?>" alt="photo">
-                    <span><?php echo $row['titre'] ?></span>
-                </div>
-
-            <?php
-            }
-            ?>
-        </div>
+        <?php showProjection('L_Users_films', 'Films', 'film_id') ?>
         <a class="" href="movies.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
         <h3>Series</h3>
         <h5><?php echo countProjection('L_Users_Series', 'Series', 'serie_id'); ?></h5>
+        <?php showProjection('L_Users_Series', 'Series', 'serie_id') ?>
         <a class="" href="series.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
         <h3>Animes</h3>
         <h5><?php echo countProjection('L_Users_Animes', 'Animes', 'anime_id'); ?></h5>
+        <?php showProjection('L_Users_Animes', 'Animes', 'anime_id') ?>
         <a class="" href="animes.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
 </section>
