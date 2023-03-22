@@ -1,5 +1,6 @@
 <?php
 require_once 'functions/redirect.php';
+require_once 'functions/countProjection.php';
 session_start();
 if (!isset($_SESSION['connected'])) {
     redirect("index.php?error=3");
@@ -81,7 +82,7 @@ if (isset($_GET['error'])) { ?>
     <div class="ligne my-3"></div>
     <div class="col">
         <h3>Films</h3>
-        <h5>0:00:00</h5>
+        <h5><?php echo countProjection('L_Users_films', 'Films', 'film_id'); ?></h5>
         <?php
         $statement = $pdo->prepare("SELECT * FROM L_Users_films 
                                         JOIN Films ON film_id = Films.id 
@@ -92,7 +93,7 @@ if (isset($_GET['error'])) { ?>
         $statement->execute([
             'pseudo' => $_SESSION['pseudo']
         ]); ?>
-        <div class="row row-cols-1 gap-4 mt-4">
+        <div class="row row-cols-1 gap-4 my-4">
             <?php
             while ($row = $statement->fetch()) { ?>
                 <div class="d-flex flex-column justify-content-center align-items-center">
@@ -108,12 +109,12 @@ if (isset($_GET['error'])) { ?>
     </div>
     <div class="col">
         <h3>Series</h3>
-        <h5>0:00:00</h5>
+        <h5><?php echo countProjection('L_Users_Series', 'Series', 'serie_id'); ?></h5>
         <a class="" href="series.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
         <h3>Animes</h3>
-        <h5>0:00:00</h5>
+        <h5><?php echo countProjection('L_Users_Animes', 'Animes', 'anime_id'); ?></h5>
         <a class="" href="animes.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
 </section>
