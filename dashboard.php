@@ -33,16 +33,16 @@ if (isset($_GET['error'])) { ?>
         <div class="gap-4 d-flex flex-column justify-content-center align-items-center ms-auto" style="width:200px">
             <?php
             require 'data/bdd_link.php';
-            $statement = $pdo->prepare("SELECT photo FROM Users WHERE pseudo = :pseudo");
+            $statement = $pdo->prepare("SELECT photo_u FROM Users WHERE pseudo = :pseudo");
             $statement->execute([
                 'pseudo' => $_SESSION['pseudo']
             ]);
             $picture = $statement->fetch();
-            if ($picture['photo'] === NULL) { ?>
+            if ($picture['photo_u'] === NULL) { ?>
                 <img class="profile_pic" src="assets/images/defaut.jpeg" alt="defaut">
             <?php
             } else { ?>
-                <img class="profile_pic" src="assets/images/profile_pic/<?php echo $picture['photo'] ?>" alt="photo">
+                <img class="profile_pic" src="assets/images/profile_pic/<?php echo $picture['photo_u'] ?>" alt="photo">
             <?php
             }
             ?>
@@ -82,6 +82,28 @@ if (isset($_GET['error'])) { ?>
     <div class="col">
         <h3>Films</h3>
         <h5>0:00:00</h5>
+        <?php
+        $statement = $pdo->prepare("SELECT * FROM L_Users_films 
+                                        JOIN Films ON film_id = Films.id 
+                                        JOIN Users ON user_id = Users.id
+                                    WHERE user_id = (
+                                    SELECT id FROM Users WHERE pseudo = :pseudo
+                                    )");
+        $statement->execute([
+            'pseudo' => $_SESSION['pseudo']
+        ]); ?>
+        <div class="row row-cols-1 gap-4 mt-4">
+            <?php
+            while ($row = $statement->fetch()) { ?>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <img class="movieList" src="assets/images/movies/<?php echo $row['photo'] ?>" alt="photo">
+                    <span><?php echo $row['titre'] ?></span>
+                </div>
+
+            <?php
+            }
+            ?>
+        </div>
         <a class="" href="movies.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
@@ -97,23 +119,4 @@ if (isset($_GET['error'])) { ?>
 </section>
 
 <?php
-// $dsn = "mysql:host=localhost;port=8889;dbname=projet_php;charset=utf8mb4";
-
-// try{
-//     $option =[
-//         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-//     ];
-//     $pdo = new PDO($dsn, 'hb_php_2023','3ciBQIMZ7s_bDH4O',$option);
-// } catch(PDOException $e) {
-//     die('Une erreur est survenue: '. $e->getMessage());
-// }
-
-// $statement = $pdo->query("SELECT * FROM L_Users_films 
-//                 JOIN Films ON film_id = Films.id 
-//                 Join Users ON user_id = Users.id");
-// // $statement = $pdo->query("INSERT INTO Films (titre, photo, duree) VALUES ('Forrest Gump', 'forrestgump.jpg', '142')");
-
-// while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-//     var_dump($row);
-// }
 require_once 'layout/footer.php';

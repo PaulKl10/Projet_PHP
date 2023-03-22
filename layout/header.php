@@ -28,16 +28,16 @@
               <a href="dashboard.php" class="nav-link text-white"><?php echo $_SESSION['pseudo'] ?></a>
               <?php
               require 'data/bdd_link.php';
-              $statement = $pdo->prepare("SELECT photo FROM Users WHERE pseudo = :pseudo");
+              $statement = $pdo->prepare("SELECT photo_u FROM Users WHERE pseudo = :pseudo");
               $statement->execute([
                 'pseudo' => $_SESSION['pseudo']
               ]);
               $picture = $statement->fetch();
-              if ($picture['photo'] === NULL) { ?>
+              if ($picture['photo_u'] === NULL) { ?>
                 <img class="profile my-auto" src="assets/images/defaut.jpeg" alt="defaut">
               <?php
               } else { ?>
-                <img class="profile my-auto" src="assets/images/profile_pic/<?php echo $picture['photo'] ?>" alt="photo">
+                <img class="profile my-auto" src="assets/images/profile_pic/<?php echo $picture['photo_u'] ?>" alt="photo">
               <?php
               }
               ?>
