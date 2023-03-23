@@ -1,6 +1,7 @@
 <?php
 require_once 'functions/redirect.php';
 require_once 'functions/countProjection.php';
+require_once 'functions/countTotal.php';
 require_once 'functions/showProjection.php';
 session_start();
 if (!isset($_SESSION['connected'])) {
@@ -32,7 +33,7 @@ if (isset($_GET['error'])) { ?>
 ?>
 <?php
 if (isset($_GET['success']) && $_GET['success'] === '1') { ?>
-    <div class="alert alert-success w-50 m-auto text-center">
+    <div class="alert alert-success w-50 m-auto text-center my-4">
         Votre enregistrement à bien eu lieu
     </div>
 <?php
@@ -87,7 +88,7 @@ if (isset($_GET['success']) && $_GET['success'] === '1') { ?>
     </div>
 </section>
 <section class="container row row-cols-1 row-cols-md-3 text-white text-center m-auto mt-5">
-    <h2 class="m-auto">Count : 0:00:00</h2>
+    <h2 class="m-auto"><?php echo countTotal() ?></h2>
     <div class="ligne my-3"></div>
     <div class="col">
         <h3>Films</h3>

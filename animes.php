@@ -1,8 +1,20 @@
 <?php
 require_once 'functions/redirect.php';
+require_once 'functions/uploadPic.php';
 session_start();
 if (!isset($_SESSION['connected'])) {
     redirect("index.php?error=3");
+}
+require_once 'classes/projection/Anime.php';
+require_once 'classes/User.php';
+
+if (isset($_FILES['file'])) {
+    $photo = uploadPic($_FILES['file'], 'assets/images/Animes/');
+    $titre = $_POST['titre'];
+    $duree = $_POST['duree'];
+    $nb_episode = $_POST['nb_episode'];
+    $anime = new Anime($titre, $photo, $duree, new User($_SESSION['pseudo']), $nb_episode);
+    $anime->addToBdd();
 }
 require_once 'layout/header.php'; ?>
 

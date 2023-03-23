@@ -13,7 +13,7 @@ if (isset($_FILES['file'])) {
     $photo = uploadPic($_FILES['file'], 'assets/images/Films/');
     $titre = $_POST['titre'];
     $duree = $_POST['duree'];
-    $movie = new Movie($titre, $photo, $duree, new User($_SESSION['pseudo'], $_SESSION['mdp']));
+    $movie = new Movie($titre, $photo, $duree, new User($_SESSION['pseudo']));
     $movie->addToBdd();
 }
 

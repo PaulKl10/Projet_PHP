@@ -13,8 +13,8 @@ if (isset($_FILES['file'])) {
     $titre = $_POST['titre'];
     $duree = $_POST['duree'];
     $nb_saison = $_POST['nb_saison'];
-    $movie = new Serie($titre, $photo, $duree, new User($_SESSION['pseudo'], $_SESSION['mdp']), $nb_saison);
-    $movie->addToBdd();
+    $serie = new Serie($titre, $photo, $duree, new User($_SESSION['pseudo']), $nb_saison);
+    $serie->addToBdd();
 }
 
 require_once 'layout/header.php'; ?>
