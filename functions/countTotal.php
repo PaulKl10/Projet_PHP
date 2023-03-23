@@ -22,7 +22,7 @@ function countTotal(): string
     $row = $statement->fetch();
 
     if ($row['total_formatted'] === NULL) {
-        return "0J0H00M";
+        return "0J00H00M";
     }
     return $row['total_formatted'];
 }
