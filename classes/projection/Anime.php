@@ -20,34 +20,38 @@ class Anime extends Projection
 
     public function addToBdd()
     {
-        require __DIR__ . '/../../data/bdd_link.php';
-        $stm = $pdo->prepare("INSERT INTO Animes (titre, photo, duree, nb_episode) VALUES (:titre, :photo, :duree, :nb_episode)");
-        $stm->execute([
-            'titre' => $this->getTitre(),
-            'photo' => $this->getPhoto(),
-            'duree' => $this->getDuree(),
-            'nb_episode' => $this->getnb_episode()
-        ]);
+        try {
+            require __DIR__ . '/../../data/bdd_link.php';
+            $stm = $pdo->prepare("INSERT INTO Animes (titre, photo, duree, nb_episode) VALUES (:titre, :photo, :duree, :nb_episode)");
+            $stm->execute([
+                'titre' => $this->getTitre(),
+                'photo' => $this->getPhoto(),
+                'duree' => $this->getDuree(),
+                'nb_episode' => $this->getnb_episode()
+            ]);
 
-        $stm = $pdo->prepare("SELECT id FROM Users WHERE pseudo = :pseudo");
-        $stm->execute([
-            'pseudo' => $this->getUser()->getPseudo()
-        ]);
-        $user_id = $stm->fetch();
+            $stm = $pdo->prepare("SELECT id FROM Users WHERE pseudo = :pseudo");
+            $stm->execute([
+                'pseudo' => $this->getUser()->getPseudo()
+            ]);
+            $user_id = $stm->fetch();
 
-        $stm = $pdo->prepare("SELECT id FROM Animes WHERE titre = :titre");
-        $stm->execute([
-            'titre' => $this->getTitre()
-        ]);
-        $anime_id = $stm->fetch();
+            $stm = $pdo->prepare("SELECT id FROM Animes WHERE titre = :titre");
+            $stm->execute([
+                'titre' => $this->getTitre()
+            ]);
+            $anime_id = $stm->fetch();
 
 
-        $statement = $pdo->prepare("INSERT INTO L_Users_Animes (user_id, anime_id) VALUES (:user_id, :anime_id)");
-        $statement->execute([
-            'user_id' => $user_id['id'],
-            'anime_id' => $anime_id['id']
-        ]);
+            $statement = $pdo->prepare("INSERT INTO L_Users_Animes (user_id, anime_id) VALUES (:user_id, :anime_id)");
+            $statement->execute([
+                'user_id' => $user_id['id'],
+                'anime_id' => $anime_id['id']
+            ]);
 
-        redirect('dashboard.php?success=1');
+            redirect('dashboard.php?success=1');
+        } catch (PDOException $e) {
+            redirect("animes.php?error=1");
+        }
     }
 }
