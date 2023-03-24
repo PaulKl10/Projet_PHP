@@ -1,6 +1,8 @@
 <?php
 require_once 'functions/redirect.php';
 require_once 'functions/uploadPic.php';
+require_once 'functions/showProjection.php';
+
 session_start();
 if (!isset($_SESSION['connected'])) {
     redirect("index.php?error=3");
@@ -43,3 +45,8 @@ require_once 'layout/header.php'; ?>
         <button type="submit" class="btn btn-warning text-white fw-bold mb-3">Ajouter la série</button>
     </div>
 </form>
+<div class="ligne"></div>
+<section class="container text-white text-center">
+    <h3 class="my-5 text-warning">Suggestions</h3>
+    <?php showProjection('Series') ?>
+</section>

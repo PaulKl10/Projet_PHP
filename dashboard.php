@@ -2,7 +2,7 @@
 require_once 'functions/redirect.php';
 require_once 'functions/countProjection.php';
 require_once 'functions/countTotal.php';
-require_once 'functions/showProjection.php';
+require_once 'functions/showProjection_User.php';
 session_start();
 if (!isset($_SESSION['connected'])) {
     redirect("index.php?error=3");
@@ -26,15 +26,25 @@ if (isset($_GET['error'])) { ?>
             case "1":
                 echo "Mauvaise extension ou taille trop grande";
                 break;
+            case "2":
+                echo "Cette projection a déjà été ajouté à votre compte";
+                break;
         } ?>
     </div>
 <?php
 }
 ?>
 <?php
-if (isset($_GET['success']) && $_GET['success'] === '1') { ?>
+if (isset($_GET['success'])) { ?>
     <div class="alert alert-success w-50 m-auto text-center my-4">
-        Votre enregistrement à bien eu lieu
+        <?php switch ($_GET['success']) {
+            case "1":
+                echo "Votre enregistrement à bien eu lieu";
+                break;
+            case "2":
+                echo "La suppression de votre projection a bien eu lieu";
+                break;
+        } ?>
     </div>
 <?php
 }
@@ -93,19 +103,19 @@ if (isset($_GET['success']) && $_GET['success'] === '1') { ?>
     <div class="col">
         <h3>Films</h3>
         <h5><?php echo countProjection('L_Users_films', 'Films', 'film_id'); ?></h5>
-        <?php showProjection('L_Users_films', 'Films', 'film_id') ?>
+        <?php showProjection_User('L_Users_films', 'Films', 'film_id') ?>
         <a class="" href="movies.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
         <h3>Series</h3>
         <h5><?php echo countProjection('L_Users_Series', 'Series', 'serie_id'); ?></h5>
-        <?php showProjection('L_Users_Series', 'Series', 'serie_id') ?>
+        <?php showProjection_User('L_Users_Series', 'Series', 'serie_id') ?>
         <a class="" href="series.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
         <h3>Animes</h3>
         <h5><?php echo countProjection('L_Users_Animes', 'Animes', 'anime_id'); ?></h5>
-        <?php showProjection('L_Users_Animes', 'Animes', 'anime_id') ?>
+        <?php showProjection_User('L_Users_Animes', 'Animes', 'anime_id') ?>
         <a class="" href="animes.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
 </section>
