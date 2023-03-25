@@ -3,10 +3,9 @@ require_once 'functions/redirect.php';
 require_once 'functions/countProjection.php';
 require_once 'functions/countTotal.php';
 require_once 'functions/showProjection_User.php';
-session_start();
-if (!isset($_SESSION['connected'])) {
-    redirect("index.php?error=3");
-}
+require_once 'functions/isConnected.php';
+
+isConnnected();
 
 // Upload d'image pour photo de profile 
 if (isset($_FILES['file'])) {
@@ -18,10 +17,10 @@ if (isset($_FILES['file'])) {
 
 
 require_once 'layout/header.php'; ?>
-<h1 class="text-warning text-center my-5">Dashboard</h1>
+<h1 class="text-warning text-center my-4">Dashboard</h1>
 <?php
 if (isset($_GET['error'])) { ?>
-    <div class="alert alert-danger w-50 m-auto text-center">
+    <div class="alert alert-danger w-50 my-4 m-auto text-center">
         <?php switch ($_GET['error']) {
             case "1":
                 echo "Mauvaise extension ou taille trop grande";

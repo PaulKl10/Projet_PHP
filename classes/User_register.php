@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../functions/redirect.php';
 require_once __DIR__ . '/User.php';
+require_once __DIR__ . '/Exception/DuplicatePseudoException.php';
+require_once __DIR__ . '/Exception/NoRegisterException.php';
 
 class User_register extends User
 {
@@ -26,7 +28,7 @@ class User_register extends User
 
         while ($row = $statement->fetch()) {
             if ($row['pseudo'] === $this->getPseudo()) {
-                redirect("index.php?error=4");
+                throw new DuplicatePseudoException();
             }
         }
 
@@ -60,6 +62,6 @@ class User_register extends User
                 redirect("dashboard.php");
             }
         }
-        redirect("index.php?error=2");
+        throw new NoRegisterException();
     }
 }

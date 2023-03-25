@@ -17,7 +17,7 @@ function showProjection_User($table, $tableJoin, $column)
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <img class="movieList" src="assets/images/<?php echo $tableJoin ?>/<?php echo $row['photo'] ?>" alt="photo">
                 <span><?php echo $row['titre'] ?></span>
-                <a class="" href="deleteToUser.php?titre=<?php echo $row['titre'] ?>&&projection=<?php echo $tableJoin ?>"><img class="img-fluid rounded-circle" width="30px" height="auto" src="assets/images/supp.webp" alt="supp icon"></a>
+                <a class="" href="deleteProjectionToUser.php?titre=<?php echo $row['titre'] ?>&&projection=<?php echo $tableJoin ?>"><img class="img-fluid rounded-circle" width="30px" height="auto" src="assets/images/supp.webp" alt="supp icon"></a>
             </div>
         <?php
         }

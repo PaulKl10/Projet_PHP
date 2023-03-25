@@ -2,13 +2,11 @@
 require_once 'functions/redirect.php';
 require_once 'functions/uploadPic.php';
 require_once 'functions/showProjection.php';
-
-session_start();
-if (!isset($_SESSION['connected'])) {
-    redirect("index.php?error=3");
-}
+require_once 'functions/isConnected.php';
 require_once 'classes/projection/Anime.php';
 require_once 'classes/User.php';
+
+isConnnected();
 
 if (isset($_FILES['file'])) {
     $photo = uploadPic($_FILES['file'], 'assets/images/Animes/');
@@ -53,7 +51,7 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
 <section class="container text-white text-center">
     <h3 class="my-5 text-warning">Suggestions</h3>
     <form class="" action="#suggestions" id="suggestions">
-        <input type="text" name="search" placeholder="Rechercher un animé"><br>
+        <input type="text" name="search" class="form-control bg-white w-25 m-auto text-black" id="floatingInput" placeholder="Rechercher un animé"><br>
         <button type="submit" class="btn btn-warning text-white fw-bold my-3">Rechercher</button>
     </form>
     <?php showProjection('Animes') ?>

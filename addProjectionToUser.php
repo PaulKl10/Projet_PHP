@@ -1,6 +1,9 @@
 <?php
-require_once 'functions/deleteProjectionToUser.php';
+require_once 'functions/addProjectionToUser.php';
 require_once 'functions/redirect.php';
+require_once 'functions/isConnected.php';
+
+isConnnected();
 
 if (empty($_GET)) {
     redirect('dashboard.php');
@@ -18,5 +21,8 @@ switch ($_GET['projection']) {
         break;
 }
 
-
-deleteProjectionToUser($_GET['projection'], $_GET['titre'], $column);
+try {
+    addProjectionToUser($_GET['projection'], $_GET['titre'], $column);
+} catch (PDOException $e) {
+    redirect('dashboard.php?error=2');
+}

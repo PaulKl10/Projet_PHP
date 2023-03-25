@@ -1,5 +1,6 @@
 <?php
 require_once 'layout/header.php';
+require_once 'classes/UserError.php';
 ?>
 
 
@@ -8,22 +9,7 @@ require_once 'layout/header.php';
 <?php
 if (isset($_GET['error'])) { ?>
     <div class="alert alert-danger w-50 m-auto text-center">
-        <?php switch ($_GET['error']) {
-            case "1":
-                echo "Rien n'a été entré";
-                break;
-
-            case "2":
-                echo "L'utilisateur n'est pas enreigstré";
-                break;
-
-            case "3":
-                echo "Vous n'êtes pas connecté";
-                break;
-            case "4":
-                echo "Le pseudo entré existe déjà";
-                break;
-        } ?>
+        <?php echo UserError::getErrorMessage($_GET['error']); ?>
     </div>
 <?php
 }
@@ -46,11 +32,11 @@ if (isset($_GET['success'])) { ?>
 <div class="w-50 px-5 m-auto mt-5">
     <form action="login.php" method="POST">
         <div class="form-floating mb-3">
-            <input required type="text" name="pseudo" class="form-control bg-black text-white" id="floatingInput" placeholder="name@example.com">
+            <input type="text" name="pseudo" class="form-control bg-black text-white" id="floatingInput" placeholder="Pseudo">
             <label class="text-warning" for="floatingInput">Pseudo</label>
         </div>
         <div class="form-floating">
-            <input required type="password" name="mdp" class="form-control bg-black text-white" id="floatingPassword" placeholder="Password">
+            <input type="password" name="mdp" class="form-control bg-black text-white" id="floatingPassword" placeholder="Password">
             <label class="text-warning" for="floatingPassword">Password</label>
         </div>
         <div class="text-center mt-4">
