@@ -6,7 +6,12 @@ require_once 'functions/isConnected.php';
 require_once 'classes/projection/Anime.php';
 require_once 'classes/User.php';
 
-isConnnected();
+try {
+    isConnnected();
+} catch (UserException $e) {
+    redirect("index.php?error=" . $e->getCode());
+}
+
 
 if (isset($_FILES['file'])) {
     $photo = uploadPic($_FILES['file'], 'assets/images/Animes/');
