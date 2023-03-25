@@ -1,10 +1,14 @@
 <?php
 require_once 'functions/redirect.php';
 require_once 'functions/countProjection.php';
-require_once 'functions/showProjection.php';
-session_start();
-if (!isset($_SESSION['connected'])) {
-    redirect("index.php?error=3");
+require_once 'functions/countTotal.php';
+require_once 'functions/showProjection_User.php';
+require_once 'functions/isConnected.php';
+
+try {
+    isConnnected();
+} catch (UserException $e) {
+    redirect("index.php?error=" . $e->getCode());
 }
 
 // Upload d'image pour photo de profile 
@@ -17,13 +21,16 @@ if (isset($_FILES['file'])) {
 
 
 require_once 'layout/header.php'; ?>
-<h1 class="text-warning text-center my-5">Dashboard</h1>
+<h1 class="text-warning text-center my-4">Dashboard</h1>
 <?php
 if (isset($_GET['error'])) { ?>
-    <div class="alert alert-danger w-50 m-auto text-center">
+    <div class="alert alert-danger w-50 my-4 m-auto text-center">
         <?php switch ($_GET['error']) {
             case "1":
                 echo "Mauvaise extension ou taille trop grande";
+                break;
+            case "2":
+                echo "Cette projection a déjà été ajouté à votre compte";
                 break;
         } ?>
     </div>
@@ -31,9 +38,16 @@ if (isset($_GET['error'])) { ?>
 }
 ?>
 <?php
-if (isset($_GET['success']) && $_GET['success'] === '1') { ?>
-    <div class="alert alert-success w-50 m-auto text-center">
-        Votre enregistrement à bien eu lieu
+if (isset($_GET['success'])) { ?>
+    <div class="alert alert-success w-50 m-auto text-center my-4">
+        <?php switch ($_GET['success']) {
+            case "1":
+                echo "Votre enregistrement à bien eu lieu";
+                break;
+            case "2":
+                echo "La suppression de votre projection a bien eu lieu";
+                break;
+        } ?>
     </div>
 <?php
 }
@@ -87,24 +101,24 @@ if (isset($_GET['success']) && $_GET['success'] === '1') { ?>
     </div>
 </section>
 <section class="container row row-cols-1 row-cols-md-3 text-white text-center m-auto mt-5">
-    <h2 class="m-auto">Count : 0:00:00</h2>
+    <h2 class="m-auto"><?php echo countTotal() ?></h2>
     <div class="ligne my-3"></div>
     <div class="col">
         <h3>Films</h3>
         <h5><?php echo countProjection('L_Users_films', 'Films', 'film_id'); ?></h5>
-        <?php showProjection('L_Users_films', 'Films', 'film_id') ?>
+        <?php showProjection_User('L_Users_films', 'Films', 'film_id') ?>
         <a class="" href="movies.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
         <h3>Series</h3>
         <h5><?php echo countProjection('L_Users_Series', 'Series', 'serie_id'); ?></h5>
-        <?php showProjection('L_Users_Series', 'Series', 'serie_id') ?>
+        <?php showProjection_User('L_Users_Series', 'Series', 'serie_id') ?>
         <a class="" href="series.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
         <h3>Animes</h3>
         <h5><?php echo countProjection('L_Users_Animes', 'Animes', 'anime_id'); ?></h5>
-        <?php showProjection('L_Users_Animes', 'Animes', 'anime_id') ?>
+        <?php showProjection_User('L_Users_Animes', 'Animes', 'anime_id') ?>
         <a class="" href="animes.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
 </section>

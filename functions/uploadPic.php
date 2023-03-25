@@ -10,7 +10,7 @@ function uploadPic(array $file_upload, string $path): string
     $tabExtension = explode('.', $name);
     $extension = strtolower(end($tabExtension));
     //Tableau des extensions que l'on accepte
-    $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+    $extensions = ['jpg', 'png', 'jpeg', 'gif', 'webp'];
     //Taille max que l'on accepte
     $maxSize = 400000;
 

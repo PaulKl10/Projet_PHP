@@ -29,6 +29,11 @@
     background-position: center;
 }
 
+.movieTitre{
+    color: white;
+    text-decoration: none;
+}
+
 .profile{
     width: 40px;
     height: 40px;
