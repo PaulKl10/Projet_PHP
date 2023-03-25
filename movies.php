@@ -16,7 +16,8 @@ if (isset($_FILES['file'])) {
     $photo = uploadPic($_FILES['file'], 'assets/images/Films/');
     $titre = $_POST['titre'];
     $duree = $_POST['duree'];
-    $movie = new Movie($titre, $photo, $duree, new User($_SESSION['pseudo']));
+    $note = intVal($_POST['note']);
+    $movie = new Movie($titre, $photo, $duree, $note, new User($_SESSION['pseudo']));
     $movie->addToBdd();
 }
 
@@ -45,6 +46,18 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
         <label class="text-warning" for="duree">Durée du film (en min)</label>
         <input required type="text" class="form-control" id="duree" name="duree">
     </div>
+    <div class="w-25">
+        <label class="text-warning" for="note">Note</label>
+        <select class="form-select" name="note" aria-label="Default select example">
+            <option selected>Note sur 5 étoiles</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
     <div class="text-center mt-4">
         <button type="submit" class="btn btn-warning text-white fw-bold mb-3">Ajouter le film</button>
     </div>
@@ -58,3 +71,5 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
     </form>
     <?php showProjection('Films') ?>
 </section>
+<?php
+require_once 'layout/footer.php';

@@ -17,8 +17,9 @@ if (isset($_FILES['file'])) {
     $photo = uploadPic($_FILES['file'], 'assets/images/Animes/');
     $titre = $_POST['titre'];
     $duree = $_POST['duree'];
+    $note = intVal($_POST['note']);
     $nb_episode = $_POST['nb_episode'];
-    $anime = new Anime($titre, $photo, $duree, new User($_SESSION['pseudo']), $nb_episode);
+    $anime = new Anime($titre, $photo, $duree, $note, new User($_SESSION['pseudo']), $nb_episode);
     $anime->addToBdd();
 }
 require_once 'layout/header.php'; ?>
@@ -48,6 +49,18 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
         <label class="text-warning" for="nb_episode">Nombre d'épisodes</label>
         <input required type="text" class="form-control" id="nb_episode" name="nb_episode">
     </div>
+    <div class="w-25">
+        <label class="text-warning" for="note">Note</label>
+        <select class="form-select" name="note" aria-label="Default select example">
+            <option selected>Note sur 5 étoiles</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
     <div class="text-center mt-4">
         <button type="submit" class="btn btn-warning text-white fw-bold mb-3">Ajouter l'animé</button>
     </div>
@@ -61,3 +74,5 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
     </form>
     <?php showProjection('Animes') ?>
 </section>
+<?php
+require_once 'layout/footer.php';

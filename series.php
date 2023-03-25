@@ -16,8 +16,9 @@ if (isset($_FILES['file'])) {
     $photo = uploadPic($_FILES['file'], 'assets/images/Series/');
     $titre = $_POST['titre'];
     $duree = $_POST['duree'];
+    $note = intVal($_POST['note']);
     $nb_saison = $_POST['nb_saison'];
-    $serie = new Serie($titre, $photo, $duree, new User($_SESSION['pseudo']), $nb_saison);
+    $serie = new Serie($titre, $photo, $duree, $note, new User($_SESSION['pseudo']), $nb_saison);
     $serie->addToBdd();
 }
 
@@ -48,6 +49,18 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
         <label class="text-warning" for="nb_saison">Nombre de saison(s)</label>
         <input required type="text" class="form-control" id="nb_saison" name="nb_saison">
     </div>
+    <div class="w-25">
+        <label class="text-warning" for="note">Note</label>
+        <select class="form-select" name="note" aria-label="Default select example">
+            <option selected>Note sur 5 étoiles</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
     <div class="text-center mt-4">
         <button type="submit" class="btn btn-warning text-white fw-bold mb-3">Ajouter la série</button>
     </div>
@@ -61,3 +74,5 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
     </form>
     <?php showProjection('Series') ?>
 </section>
+<?php
+require_once 'layout/footer.php';

@@ -7,9 +7,9 @@ class Serie extends Projection
 {
     private string $nb_saison;
 
-    public function __construct(string $titre, string $photo, string $duree, User $user, $nb_saison)
+    public function __construct(string $titre, string $photo, string $duree, int $note,  User $user, $nb_saison)
     {
-        parent::__construct($titre, $photo, $duree, $user);
+        parent::__construct($titre, $photo, $duree, $note, $user);
         $this->nb_saison = $nb_saison;
     }
 
@@ -30,26 +30,7 @@ class Serie extends Projection
                 'nb_saison' => $this->getNb_saison()
             ]);
 
-            $stm = $pdo->prepare("SELECT id FROM Users WHERE pseudo = :pseudo");
-            $stm->execute([
-                'pseudo' => $this->getUser()->getPseudo()
-            ]);
-            $user_id = $stm->fetch();
-
-            $stm = $pdo->prepare("SELECT id FROM Series WHERE titre = :titre");
-            $stm->execute([
-                'titre' => $this->getTitre()
-            ]);
-            $serie_id = $stm->fetch();
-
-
-            $statement = $pdo->prepare("INSERT INTO L_Users_Series (user_id, serie_id) VALUES (:user_id, :serie_id)");
-            $statement->execute([
-                'user_id' => $user_id['id'],
-                'serie_id' => $serie_id['id']
-            ]);
-
-            redirect('dashboard.php?success=1');
+            addProjectionToUser('Series', $this->getTitre(), 'serie_id', $this->getNote());
         } catch (PDOException $e) {
             redirect('series.php?error=1');
         }

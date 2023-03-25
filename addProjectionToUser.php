@@ -24,9 +24,10 @@ switch ($_GET['projection']) {
         $column = 'anime_id';
         break;
 }
+$note = intVal($_GET['note']);
 
 try {
-    addProjectionToUser($_GET['projection'], $_GET['titre'], $column);
+    addProjectionToUser($_GET['projection'], $_GET['titre'], $column, $note);
 } catch (PDOException $e) {
     redirect('dashboard.php?error=2');
 }
