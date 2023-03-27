@@ -4,7 +4,7 @@ function showProjection($table)
     require __DIR__ . '/../data/bdd_link.php';
     if (isset($_GET['search'])) {
         $search = $_GET['search'];
-        $statement = $pdo->query("SELECT * FROM $table WHERE titre LIKE '%$search%'"); ?>
+        $statement = $pdo->query("SELECT * FROM $table WHERE titre LIKE '%$search%' ORDER BY titre"); ?>
         <div class="row row-cols-5 gap-4 my-4">
             <?php
             while ($row = $statement->fetch()) { ?>
@@ -59,7 +59,7 @@ function showProjection($table)
         </div>
     <?php
     } else {
-        $statement = $pdo->query("SELECT * FROM $table"); ?>
+        $statement = $pdo->query("SELECT * FROM $table ORDER BY titre"); ?>
         <div class="row row-cols-5 g-4 my-4">
             <?php
             while ($row = $statement->fetch()) { ?>

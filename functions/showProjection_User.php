@@ -7,7 +7,7 @@ function showProjection_User($table, $tableJoin, $column)
                                         JOIN Users ON user_id = Users.id
                                     WHERE user_id = (
                                     SELECT id FROM Users WHERE pseudo = :pseudo
-                                    )");
+                                    ) ORDER BY $tableJoin.titre");
     $statement->execute([
         'pseudo' => $_SESSION['pseudo']
     ]); ?>
