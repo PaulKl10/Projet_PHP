@@ -3,9 +3,12 @@ function showProjection($table)
 {
     require __DIR__ . '/../data/bdd_link.php';
     if (isset($_GET['search'])) {
-        $search = $_GET['search'];
-        $statement = $pdo->query("SELECT * FROM $table WHERE titre LIKE '%$search%' ORDER BY titre"); ?>
-        <div class="row row-cols-5 gap-4 my-4">
+        $search = "%" . $_GET['search'] . "%";
+        $statement = $pdo->prepare("SELECT * FROM $table WHERE titre LIKE :search ORDER BY titre");
+        $statement->execute([
+            'search' => $search
+        ]); ?>
+        <div class="row row-cols-5 g-4 my-4">
             <?php
             while ($row = $statement->fetch()) { ?>
                 <a data-bs-toggle="modal" data-bs-target="#addprojection<?php echo $row['id'] ?>" style="text-decoration: none; cursor:pointer">
@@ -24,14 +27,8 @@ function showProjection($table)
                             </div>
                             <div class="modal-body">
                                 <form action="addProjectionToUser.php" method="GET">
-                                    <div class="d-none">
-                                        <label class="text-warning" for="projection">Projection</label>
-                                        <input type="text" class="form-control" id="projection" value="<?php echo $table ?>" name="projection" readonly>
-                                    </div>
-                                    <div class="d-none">
-                                        <label class="text-warning" for="titre">Titre</label>
-                                        <input type="text" class="form-control" id="titre" value="<?php echo $row['titre'] ?>" name="titre" readonly>
-                                    </div>
+                                    <input type="hidden" value="<?php echo $table ?>" name="projection">
+                                    <input type="hidden" value="<?php echo $row['titre'] ?>" name="titre">
                                     <div>
                                         <label class="text-warning" for="note">Note</label>
                                         <select class="form-select" name="note" aria-label="Default select example">

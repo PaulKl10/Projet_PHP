@@ -5,11 +5,9 @@ require_once 'functions/countTotal.php';
 require_once 'functions/showProjection_User.php';
 require_once 'functions/isConnected.php';
 
-try {
-    isConnnected();
-} catch (UserException $e) {
-    redirect("index.php?error=" . $e->getCode());
-}
+
+isConnnected();
+
 
 // Upload d'image pour photo de profile 
 if (isset($_FILES['file'])) {

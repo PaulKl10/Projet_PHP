@@ -7,11 +7,8 @@ require_once 'functions/isConnected.php';
 require_once 'classes/projection/Movie.php';
 require_once 'classes/User.php';
 
-try {
-    isConnnected();
-} catch (UserException $e) {
-    redirect("index.php?error=" . $e->getCode());
-}
+isConnnected();
+
 
 if (isset($_FILES['file'])) {
     $photo = uploadPic($_FILES['file'], 'assets/images/Films/');

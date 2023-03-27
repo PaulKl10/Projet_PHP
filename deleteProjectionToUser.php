@@ -3,11 +3,9 @@ require_once 'functions/deleteProjectionToUser.php';
 require_once 'functions/redirect.php';
 require_once 'functions/isConnected.php';
 
-try {
-    isConnnected();
-} catch (UserException $e) {
-    redirect("index.php?error=" . $e->getCode());
-}
+
+isConnnected();
+
 
 if (empty($_GET)) {
     redirect('dashboard.php');
