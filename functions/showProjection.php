@@ -9,7 +9,7 @@ function showProjection($table)
             <?php
             while ($row = $statement->fetch()) { ?>
                 <a data-bs-toggle="modal" data-bs-target="#addprojection<?php echo $row['id'] ?>" style="text-decoration: none; cursor:pointer">
-                    <div class="d-flex flex-column justify-content-center align-items-center">
+                    <div class="projection d-flex flex-column justify-content-center align-items-center">
                         <img class="movieList" src="assets/images/<?php echo $table ?>/<?php echo $row['photo'] ?>" alt="photo">
                         <span class="movieTitre"><?php echo $row['titre'] ?></span>
                     </div>
@@ -64,7 +64,7 @@ function showProjection($table)
             <?php
             while ($row = $statement->fetch()) { ?>
                 <a data-bs-toggle="modal" data-bs-target="#addprojection<?php echo $row['id'] ?>" style="text-decoration: none; cursor:pointer">
-                    <div class="d-flex flex-column justify-content-center align-items-center">
+                    <div class="projection d-flex flex-column justify-content-center align-items-center">
                         <img class="movieList" src="assets/images/<?php echo $table ?>/<?php echo $row['photo'] ?>" alt="photo">
                         <span class="movieTitre"><?php echo $row['titre'] ?></span>
                     </div>

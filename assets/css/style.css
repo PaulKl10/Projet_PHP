@@ -41,3 +41,11 @@
     background-size: cover;
     background-position: center;
 }
+
+.projection{
+    transition: 0.5s;
+}
+
+.projection:hover{
+    transform: scale(1.2);
+}

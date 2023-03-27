@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../Projection.php';
 require_once __DIR__ . '/../User.php';
 require_once __DIR__ . '/../../functions/redirect.php';
+require_once __DIR__ . '/../../functions/addProjectionToUser.php';
 
 class Anime extends Projection
 {
