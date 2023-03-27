@@ -2,15 +2,16 @@
 require_once __DIR__ . '/../Projection.php';
 require_once __DIR__ . '/../User.php';
 require_once __DIR__ . '/../../functions/redirect.php';
+require_once __DIR__ . '/../../functions/addProjectionToUser.php';
 
 
 
 class Movie extends Projection
 {
 
-    public function __construct(string $titre, string $photo, string $duree, User $user)
+    public function __construct(string $titre, string $photo, string $duree, int $note, User $user)
     {
-        parent::__construct($titre, $photo, $duree, $user);
+        parent::__construct($titre, $photo, $duree, $note, $user);
     }
 
     public function addToBdd()
@@ -24,26 +25,7 @@ class Movie extends Projection
                 'duree' => $this->getDuree()
             ]);
 
-            $stm = $pdo->prepare("SELECT id FROM Users WHERE pseudo = :pseudo");
-            $stm->execute([
-                'pseudo' => $this->getUser()->getPseudo()
-            ]);
-            $user_id = $stm->fetch();
-
-            $stm = $pdo->prepare("SELECT id FROM Films WHERE titre = :titre");
-            $stm->execute([
-                'titre' => $this->getTitre()
-            ]);
-            $film_id = $stm->fetch();
-
-
-            $statement = $pdo->prepare("INSERT INTO L_Users_films (user_id, film_id) VALUES (:user_id, :film_id)");
-            $statement->execute([
-                'user_id' => $user_id['id'],
-                'film_id' => $film_id['id']
-            ]);
-
-            redirect('dashboard.php?success=1');
+            addProjectionToUser('Films', $this->getTitre(), 'film_id', $this->getNote());
         } catch (PDOException $e) {
             redirect("movies.php?error=1");
         }

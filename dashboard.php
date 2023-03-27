@@ -122,6 +122,5 @@ if (isset($_GET['success'])) { ?>
         <a class="" href="animes.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
 </section>
-
 <?php
 require_once 'layout/footer.php';

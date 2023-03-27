@@ -5,13 +5,15 @@ class Projection
     private string $titre;
     private string $photo;
     private string $duree;
+    private int $note;
     private User $user;
 
-    public function __construct($titre, $photo, $duree, $user)
+    public function __construct($titre, $photo, $duree, $note, $user)
     {
         $this->titre = $titre;
         $this->photo = $photo;
         $this->duree = $duree;
+        $this->note = $note;
         $this->user = $user;
     }
 
@@ -28,6 +30,11 @@ class Projection
     public function getDuree()
     {
         return $this->duree;
+    }
+
+    public function getNote()
+    {
+        return $this->note;
     }
 
     public function getUser()

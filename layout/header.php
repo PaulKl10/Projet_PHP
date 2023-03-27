@@ -45,6 +45,11 @@
             <a class="nav-link" aria-current="page" href="logout.php">Log out</a>
           </div>
         </div>
+        <script>
+          setTimeout(function e() {
+            window.location.href = 'logout.php'
+          }, 600000);
+        </script>
       <?php
       }
       ?>
