@@ -24,4 +24,4 @@ switch ($_GET['projection']) {
 }
 
 
-deleteProjectionToUser($_GET['projection'], $_GET['titre'], $column);
+deleteProjectionToUser($_GET['projection'], $_GET['titre'], $column, $_SESSION['pseudo']);

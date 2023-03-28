@@ -2,12 +2,12 @@
 require_once __DIR__ . '/redirect.php';
 
 
-function deleteProjectionToUser($projection, $titre, $column)
+function deleteProjectionToUser($projection, $titre, $column, $user)
 {
     require_once 'data/bdd_link.php';
     $stm = $pdo->prepare("SELECT id FROM Users WHERE pseudo = :pseudo");
     $stm->execute([
-        'pseudo' => $_SESSION['pseudo']
+        'pseudo' => $user
     ]);
     $user_id = $stm->fetch();
 

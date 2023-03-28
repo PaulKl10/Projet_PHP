@@ -25,7 +25,7 @@ class Movie extends Projection
                 'duree' => $this->getDuree()
             ]);
 
-            addProjectionToUser('Films', $this->getTitre(), 'film_id', $this->getNote());
+            addProjectionToUser('Films', $this->getTitre(), 'film_id', $this->getNote(), $this->getUser()->getPseudo());
         } catch (PDOException $e) {
             redirect("movies.php?error=1");
         }

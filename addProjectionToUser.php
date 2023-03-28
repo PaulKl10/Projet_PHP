@@ -25,7 +25,7 @@ switch ($_GET['projection']) {
 $note = intVal($_GET['note']);
 
 try {
-    addProjectionToUser($_GET['projection'], $_GET['titre'], $column, $note);
+    addProjectionToUser($_GET['projection'], $_GET['titre'], $column, $note, $_SESSION['pseudo']);
 } catch (PDOException $e) {
     redirect('dashboard.php?error=2');
 }

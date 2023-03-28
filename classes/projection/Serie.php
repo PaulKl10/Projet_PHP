@@ -31,7 +31,7 @@ class Serie extends Projection
                 'nb_saison' => $this->getNb_saison()
             ]);
 
-            addProjectionToUser('Series', $this->getTitre(), 'serie_id', $this->getNote());
+            addProjectionToUser('Series', $this->getTitre(), 'serie_id', $this->getNote(), $this->getUser()->getPseudo());
         } catch (PDOException $e) {
             redirect('series.php?error=1');
         }

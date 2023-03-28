@@ -2,12 +2,12 @@
 require_once __DIR__ . '/redirect.php';
 
 
-function addProjectionToUser($projection, $titre, $column, $note)
+function addProjectionToUser($projection, $titre, $column, $note, $user_pseudo)
 {
     require 'data/bdd_link.php';
     $stm = $pdo->prepare("SELECT id FROM Users WHERE pseudo = :pseudo");
     $stm->execute([
-        'pseudo' => $_SESSION['pseudo']
+        'pseudo' => $user_pseudo
     ]);
     $user_id = $stm->fetch();
 

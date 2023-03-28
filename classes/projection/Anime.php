@@ -31,7 +31,7 @@ class Anime extends Projection
                 'nb_episode' => $this->getnb_episode()
             ]);
 
-            addProjectionToUser('Animes', $this->getTitre(), 'anime_id', $this->getNote());
+            addProjectionToUser('Animes', $this->getTitre(), 'anime_id', $this->getNote(), $this->getUser()->getPseudo());
         } catch (PDOException $e) {
             redirect("animes.php?error=1");
         }

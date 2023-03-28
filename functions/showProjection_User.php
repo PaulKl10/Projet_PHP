@@ -1,15 +1,13 @@
 <?php
-function showProjection_User($table, $tableJoin, $column)
+function showProjection_User($table, $tableJoin, $column, $user_id)
 {
     require __DIR__ . '/../data/bdd_link.php';
     $statement = $pdo->prepare("SELECT * FROM $table 
                                         JOIN $tableJoin ON $column = $tableJoin.id 
                                         JOIN Users ON user_id = Users.id
-                                    WHERE user_id = (
-                                    SELECT id FROM Users WHERE pseudo = :pseudo
-                                    ) ORDER BY $tableJoin.titre");
+                                    WHERE user_id = :id ORDER BY $tableJoin.titre");
     $statement->execute([
-        'pseudo' => $_SESSION['pseudo']
+        'id' => $user_id
     ]); ?>
     <div class="row row-cols-1 gap-5 my-4">
         <?php
