@@ -1,16 +1,15 @@
 <?php
-require_once 'functions/deleteProjectionToUser.php';
+require_once 'classes/ProjectionToUser/deleteProjectionToUser.php';
 require_once 'functions/redirect.php';
 require_once 'functions/isConnected.php';
 
 
 isConnnected();
 
-
 if (empty($_GET)) {
     redirect('dashboard.php');
 }
-session_start();
+
 switch ($_GET['projection']) {
     case "Films":
         $column = 'film_id';
@@ -23,5 +22,9 @@ switch ($_GET['projection']) {
         break;
 }
 
-
-deleteProjectionToUser($_GET['projection'], $_GET['titre'], $column, $_SESSION['pseudo']);
+try {
+    $projection = new deleteProjectionToUser($_GET['projection'], $_GET['titre'], $column, $_SESSION['pseudo']);
+    $projection->deleteToUser();
+} catch (PDOException $e) {
+    exit('Error deleting');
+}

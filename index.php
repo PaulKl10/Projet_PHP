@@ -1,6 +1,6 @@
 <?php
 require_once 'layout/header.php';
-require_once 'classes/UserError.php';
+require_once 'classes/Exception/UserError.php';
 ?>
 
 

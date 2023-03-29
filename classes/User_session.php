@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . '/../functions/redirect.php';
 require_once __DIR__ . '/User.php';
-require_once __DIR__ . '/Exception/DuplicatePseudoException.php';
-require_once __DIR__ . '/Exception/NoRegisterException.php';
+require_once __DIR__ . '/Exception/UserException/DuplicatePseudoException.php';
+require_once __DIR__ . '/Exception/UserException/NoRegisterException.php';
 
 class User_session extends User
 {

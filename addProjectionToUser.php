@@ -1,16 +1,16 @@
 <?php
-require_once 'functions/addProjectionToUser.php';
+require_once 'classes/ProjectionToUser/addProjectionToUser.php';
+require_once 'classes/Exception/ProjectionException/ProjectionException.php';
 require_once 'functions/redirect.php';
 require_once 'functions/isConnected.php';
 
 
 isConnnected();
 
-
 if (empty($_GET)) {
     redirect('dashboard.php');
 }
-session_start();
+
 switch ($_GET['projection']) {
     case "Films":
         $column = 'film_id';
@@ -25,7 +25,8 @@ switch ($_GET['projection']) {
 $note = intVal($_GET['note']);
 
 try {
-    addProjectionToUser($_GET['projection'], $_GET['titre'], $column, $note, $_SESSION['pseudo']);
-} catch (PDOException $e) {
-    redirect('dashboard.php?error=2');
+    $projection = new addProjectionToUser($_GET['projection'], $_GET['titre'], $column, $_SESSION['pseudo'], $note);
+    $projection->addToUser();
+} catch (ProjectionException $e) {
+    redirect('dashboard.php?error=' . $e->getCode());
 }

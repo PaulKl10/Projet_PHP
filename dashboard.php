@@ -1,9 +1,8 @@
 <?php
 require_once 'functions/redirect.php';
-require_once 'functions/countProjection.php';
-require_once 'functions/countTotal.php';
-require_once 'functions/showProjection_User.php';
 require_once 'functions/isConnected.php';
+require_once 'classes/Exception/ProjectionException/ProjectionException.php';
+require_once 'classes/Exception/ProjectionError.php';
 
 
 isConnnected();
@@ -11,8 +10,13 @@ isConnnected();
 
 // Upload d'image pour photo de profile 
 if (isset($_FILES['file'])) {
-    require_once 'functions/uploadPic.php';
-    $file = uploadPic($_FILES['file'], './assets/images/profile_pic/');
+    try {
+        require_once 'functions/uploadPic.php';
+        $file = uploadPic($_FILES['file'], './assets/images/profile_pic/');
+    } catch (ProjectionException $e) {
+        redirect('dashboard.php?error=' . $e->getCode());
+    }
+
     require_once 'functions/uploadToBdd_Users.php';
     uploadToBdd_Users($file, $_SESSION['pseudo']);
 }
@@ -23,14 +27,7 @@ require_once 'layout/header.php'; ?>
 <?php
 if (isset($_GET['error'])) { ?>
     <div class="alert alert-danger w-50 my-4 m-auto text-center">
-        <?php switch ($_GET['error']) {
-            case "1":
-                echo "Mauvaise extension ou taille trop grande";
-                break;
-            case "2":
-                echo "Cette projection a déjà été ajouté à votre compte";
-                break;
-        } ?>
+        <?php echo ProjectionError::getErrorMessage($_GET['error']); ?>
     </div>
 <?php
 }
@@ -98,27 +95,6 @@ if (isset($_GET['success'])) { ?>
         <h2>Compte de <?php echo $_SESSION['pseudo']; ?></h2>
     </div>
 </section>
-<section class="container row row-cols-1 row-cols-md-3 text-white text-center m-auto mt-5">
-    <h2 class="m-auto"><?php echo countTotal($_SESSION['id']) ?></h2>
-    <div class="ligne my-3"></div>
-    <div class="col">
-        <h3>Films</h3>
-        <h5><?php echo countProjection('L_Users_films', 'Films', 'film_id', $_SESSION['id']); ?></h5>
-        <?php showProjection_User('L_Users_films', 'Films', 'film_id', $_SESSION['id']) ?>
-        <a class="" href="movies.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
-    </div>
-    <div class="col">
-        <h3>Series</h3>
-        <h5><?php echo countProjection('L_Users_Series', 'Series', 'serie_id', $_SESSION['id']); ?></h5>
-        <?php showProjection_User('L_Users_Series', 'Series', 'serie_id', $_SESSION['id']) ?>
-        <a class="" href="series.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
-    </div>
-    <div class="col">
-        <h3>Animes</h3>
-        <h5><?php echo countProjection('L_Users_Animes', 'Animes', 'anime_id', $_SESSION['id']); ?></h5>
-        <?php showProjection_User('L_Users_Animes', 'Animes', 'anime_id', $_SESSION['id']) ?>
-        <a class="" href="animes.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
-    </div>
-</section>
 <?php
+require_once 'templates/showAndCountProjections.php';
 require_once 'layout/footer.php';

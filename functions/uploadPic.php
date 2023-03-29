@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../classes/Exception/ProjectionException/BadFormatImageException.php';
 function uploadPic(array $file_upload, string $path): string
 {
 
@@ -23,7 +24,7 @@ function uploadPic(array $file_upload, string $path): string
 
         move_uploaded_file($tmpName, $path . $picture);
     } else {
-        redirect("dashboard.php?error=1");
+        throw new BadFormatImageException();
     }
     return $picture;
 }

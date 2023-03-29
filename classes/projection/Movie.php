@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../Projection.php';
+require_once __DIR__ . '/Projection.php';
 require_once __DIR__ . '/../User.php';
 require_once __DIR__ . '/../../functions/redirect.php';
-require_once __DIR__ . '/../../functions/addProjectionToUser.php';
+require_once __DIR__ . '/../ProjectionToUser/addProjectionToUser.php';
 
 
 
@@ -25,7 +25,8 @@ class Movie extends Projection
                 'duree' => $this->getDuree()
             ]);
 
-            addProjectionToUser('Films', $this->getTitre(), 'film_id', $this->getNote(), $this->getUser()->getPseudo());
+            $add = new addProjectionToUser('Films', $this->getTitre(), 'film_id', $this->getUser()->getPseudo(), $this->getNote());
+            $add->addToUser();
         } catch (PDOException $e) {
             redirect("movies.php?error=1");
         }

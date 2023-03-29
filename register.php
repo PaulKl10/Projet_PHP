@@ -2,7 +2,7 @@
 require_once 'classes/User_session.php';
 require_once 'functions/redirect.php';
 require_once 'classes/UserError.php';
-require_once 'classes/Exception/UserException.php';
+require_once 'classes/Exception/UserException/UserException.php';
 
 if (empty($_POST['pseudo']) || empty($_POST['mdp'])) {
     redirect("index.php?error=" . UserError::TEXTFIELD_REQUIRED);

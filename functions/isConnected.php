@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/redirect.php';
-require_once __DIR__ . '/../classes/UserError.php';
+require_once __DIR__ . '/../classes/Exception/UserError.php';
 
 function isConnnected()
 {
