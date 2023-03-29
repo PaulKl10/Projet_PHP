@@ -11,7 +11,11 @@ isConnnected();
 
 
 if (isset($_FILES['file'])) {
-    $photo = uploadPic($_FILES['file'], 'assets/images/Films/');
+    try {
+        $photo = uploadPic($_FILES['file'], 'assets/images/Films/');
+    } catch (ProjectionException $e) {
+        redirect('dashboard.php?error=' . $e->getCode());
+    }
     $titre = $_POST['titre'];
     $duree = $_POST['duree'];
     $note = intVal($_POST['note']);

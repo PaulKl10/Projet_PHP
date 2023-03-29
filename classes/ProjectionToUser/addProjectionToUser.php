@@ -37,7 +37,7 @@ class addProjectionToUser extends ProjectionToUser
             'proj_id' => $projection_id['id']
         ]);
         $IsExist = $stm->fetch();
-        if (isset($IsExist)) {
+        if ($IsExist !== false) {
             throw new AlreadyAddException();
         }
 
