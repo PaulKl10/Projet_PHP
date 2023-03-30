@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../Projection.php';
+require_once __DIR__ . '/Projection.php';
 require_once __DIR__ . '/../User.php';
 require_once __DIR__ . '/../../functions/redirect.php';
-require_once __DIR__ . '/../../functions/addProjectionToUser.php';
+require_once __DIR__ . '/../ProjectionToUser/addProjectionToUser.php';
 
 class Serie extends Projection
 {
@@ -31,7 +31,8 @@ class Serie extends Projection
                 'nb_saison' => $this->getNb_saison()
             ]);
 
-            addProjectionToUser('Series', $this->getTitre(), 'serie_id', $this->getNote());
+            $add = new addProjectionToUser('Series', $this->getTitre(), 'serie_id', $this->getUser()->getPseudo(), $this->getNote());
+            $add->addToUser();
         } catch (PDOException $e) {
             redirect('series.php?error=1');
         }

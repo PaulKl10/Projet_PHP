@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../Projection.php';
+require_once __DIR__ . '/Projection.php';
 require_once __DIR__ . '/../User.php';
 require_once __DIR__ . '/../../functions/redirect.php';
-require_once __DIR__ . '/../../functions/addProjectionToUser.php';
+require_once __DIR__ . '/../ProjectionToUser/addProjectionToUser.php';
 
 class Anime extends Projection
 {
@@ -31,7 +31,8 @@ class Anime extends Projection
                 'nb_episode' => $this->getnb_episode()
             ]);
 
-            addProjectionToUser('Animes', $this->getTitre(), 'anime_id', $this->getNote());
+            $add = new addProjectionToUser('Animes', $this->getTitre(), 'anime_id', $this->getUser()->getPseudo(), $this->getNote());
+            $add->addToUser();
         } catch (PDOException $e) {
             redirect("animes.php?error=1");
         }

@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/../functions/redirect.php';
 require_once __DIR__ . '/User.php';
-require_once __DIR__ . '/Exception/DuplicatePseudoException.php';
-require_once __DIR__ . '/Exception/NoRegisterException.php';
+require_once __DIR__ . '/Exception/UserException/DuplicatePseudoException.php';
+require_once __DIR__ . '/Exception/UserException/NoRegisterException.php';
 
-class User_register extends User
+class User_session extends User
 {
 
     private string $mdp;
@@ -47,18 +47,19 @@ class User_register extends User
     {
         require_once __DIR__ . '/../data/bdd_link.php';
 
-        $statement = $pdo->prepare("SELECT mdp FROM Users WHERE pseudo = :pseudo");
+        $statement = $pdo->prepare("SELECT mdp,id FROM Users WHERE pseudo = :pseudo");
         $statement->execute([
             ':pseudo' => $this->getPseudo()
         ]);
-        $motdepasse = $statement->fetch();
+        $info = $statement->fetch();
 
-        if ($motdepasse) {
-            $result = password_verify($this->getMdp(), $motdepasse['mdp']);
+        if ($info) {
+            $result = password_verify($this->getMdp(), $info['mdp']);
             if ($result === true) {
                 session_start();
                 $_SESSION['connected'] = true;
                 $_SESSION['pseudo'] = $this->getPseudo();
+                $_SESSION['id'] = $info['id'];
                 redirect("dashboard.php");
             }
         }

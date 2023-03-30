@@ -7,15 +7,15 @@ require_once 'functions/showRank.php';
 require_once 'classes/projection/Anime.php';
 require_once 'classes/User.php';
 
-try {
-    isConnnected();
-} catch (UserException $e) {
-    redirect("index.php?error=" . $e->getCode());
-}
 
+isConnnected();
 
 if (isset($_FILES['file'])) {
-    $photo = uploadPic($_FILES['file'], 'assets/images/Animes/');
+    try {
+        $photo = uploadPic($_FILES['file'], 'assets/images/Animes/');
+    } catch (ProjectionException $e) {
+        redirect('dashboard.php?error=' . $e->getCode());
+    }
     $titre = $_POST['titre'];
     $duree = $_POST['duree'];
     $note = intVal($_POST['note']);
