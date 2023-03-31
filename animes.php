@@ -1,11 +1,10 @@
 <?php
 require_once 'functions/redirect.php';
 require_once 'functions/uploadPic.php';
-require_once 'functions/showProjection.php';
 require_once 'functions/isConnected.php';
-require_once 'functions/showRank.php';
 require_once 'classes/projection/Anime.php';
 require_once 'classes/User.php';
+require_once 'classes/WatchProjection.php';
 
 
 isConnnected();
@@ -68,7 +67,8 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
         </div>
     </form>
     <?php
-    showRank('Animes', 'anime_id'); ?>
+    $watch = new WatchProjection($_SESSION['id']);
+    $watch->showRank($watch::ANIME); ?>
 </div>
 <div class="ligne"></div>
 <section class="container text-white text-center">
@@ -77,7 +77,14 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
         <input type="text" name="search" class="form-control bg-white w-25 m-auto text-black" id="floatingInput" placeholder="Rechercher un animé"><br>
         <button type="submit" class="btn btn-warning text-white fw-bold my-3">Rechercher</button>
     </form>
-    <?php showProjection('Animes') ?>
+    <?php
+    if (isset($_GET['search'])) {
+        $result = $_GET['search'];
+        $watch->showProjection($watch::ANIME, $result);
+    } else {
+        $watch->showProjection($watch::ANIME);
+    }
+    ?>
 </section>
 <?php
 require_once 'layout/footer.php';
