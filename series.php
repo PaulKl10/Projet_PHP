@@ -72,8 +72,8 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
     $watch->showRank($watch::SERIE);
     ?>
 </div>
-<div class="ligne"></div>
-<section class="container text-white text-center">
+<div class="ligne wow animate__animated animate__fadeInUp"></div>
+<section class="container text-white text-center wow animate__animated animate__fadeInUp">
     <h3 class="my-5 text-warning" id="suggestions">Suggestions</h3>
     <form class="" action="#suggestions">
         <input type="text" name="search" class="form-control bg-white w-25 m-auto text-black" id="floatingInput" placeholder="Rechercher une série"><br>

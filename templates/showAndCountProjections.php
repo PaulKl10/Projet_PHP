@@ -10,18 +10,18 @@ require_once __DIR__ . '/../classes/WatchProjection.php';
         <h3>Films</h3>
         <h5><?php echo $watch->counter($watch::MOVIE) ?></h5>
         <?php $watch->showProjectionToUser($watch::MOVIE) ?>
-        <a class="" href="movies.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
+        <a class="wow animate__animated animate__fadeInUp" href="movies.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
         <h3>Series</h3>
         <h5><?php echo $watch->counter($watch::SERIE); ?></h5>
         <?php $watch->showProjectionToUser($watch::SERIE) ?>
-        <a class="" href="series.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
+        <a class="wow animate__animated animate__fadeInUp" href="series.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
     <div class="col">
         <h3>Animes</h3>
         <h5><?php echo $watch->counter($watch::ANIME); ?></h5>
         <?php $watch->showProjectionToUser($watch::ANIME) ?>
-        <a class="" href="animes.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
+        <a class="wow animate__animated animate__fadeInUp" href="animes.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
 </section>

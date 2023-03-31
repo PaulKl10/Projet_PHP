@@ -110,11 +110,11 @@ class WatchProjection
         <div class="row row-cols-1 gap-5 my-4">
             <?php
             while ($row = $statement->fetch()) { ?>
-                <div class="d-flex flex-column justify-content-center align-items-center">
+                <div class="d-flex flex-column justify-content-center align-items-center wow animate__animated animate__fadeInUp">
                     <img class="movieList" src="assets/images/<?php echo $table ?>/<?php echo $row['photo'] ?>" alt="photo">
                     <span><?php echo $row['titre'] ?></span>
                     <span><?php echo $row['note'] ?> <img style="margin-bottom: 5px;" width="15px" height="auto" src="assets/images/star.png" alt="star"></span>
-                    <a class="" href="deleteProjectionToUser.php?titre=<?php echo $row['titre'] ?>&&projection=<?php echo $table ?>"><img class="img-fluid rounded-circle" width="30px" height="auto" src="assets/images/supp.webp" alt="supp icon"></a>
+                    <a class="" href="deleteProjectionToUser.php?titre=<?php echo $row['titre'] ?>&&projection=<?php echo $table ?>"><img class="img-fluid rounded-circle" width="30px" height="auto" src="assets/images/supp.png" alt="supp icon"></a>
                 </div>
             <?php
             }
@@ -149,7 +149,7 @@ class WatchProjection
             <div class="row row-cols-5 g-4 my-4">
                 <?php
                 while ($row = $statement->fetch()) { ?>
-                    <a data-bs-toggle="modal" data-bs-target="#addprojection<?php echo $row['id'] ?>" style="text-decoration: none; cursor:pointer">
+                    <a class="wow animate__animated animate__fadeInUp" data-bs-toggle="modal" data-bs-target="#addprojection<?php echo $row['id'] ?>" style="text-decoration: none; cursor:pointer">
                         <div class="projection d-flex flex-column justify-content-center align-items-center">
                             <img class="movieList" src="assets/images/<?php echo $table ?>/<?php echo $row['photo'] ?>" alt="photo">
                             <span class="movieTitre"><?php echo $row['titre'] ?></span>
@@ -166,7 +166,7 @@ class WatchProjection
             <div class="row row-cols-5 g-4 my-4">
                 <?php
                 while ($row = $statement->fetch()) { ?>
-                    <a data-bs-toggle="modal" data-bs-target="#addprojection<?php echo $row['id'] ?>" style="text-decoration: none; cursor:pointer">
+                    <a class="wow animate__animated animate__fadeInUp" data-bs-toggle="modal" data-bs-target="#addprojection<?php echo $row['id'] ?>" style="text-decoration: none; cursor:pointer">
                         <div class="projection d-flex flex-column justify-content-center align-items-center">
                             <img class="movieList" src="assets/images/<?php echo $table ?>/<?php echo $row['photo'] ?>" alt="photo">
                             <span class="movieTitre"><?php echo $row['titre'] ?></span>
@@ -211,8 +211,8 @@ class WatchProjection
             <?php
             $rank = 1;
             while ($row = $statement->fetch()) { ?>
-                <div class="fs-5">
-                    <span class="text-warning"><?php echo $row['note_moyenne'] ?><img style="margin-bottom: 5px;" width="15px" height="auto" src="assets/images/star.png" alt="star"></span>
+                <div class="fs-5 wow animate__animated animate__fadeInUp"">
+                    <span class=" text-warning"><?php echo $row['note_moyenne'] ?><img style="margin-bottom: 5px;" width="15px" height="auto" src="assets/images/star.png" alt="star"></span>
                     <span class="text-danger"><?php echo $row['titre'] ?></span>
                 </div>
             <?php

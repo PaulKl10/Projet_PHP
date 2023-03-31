@@ -70,9 +70,9 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
     $watch = new WatchProjection($_SESSION['id']);
     $watch->showRank($watch::ANIME); ?>
 </div>
-<div class="ligne"></div>
-<section class="container text-white text-center">
-    <h3 class="my-5 text-warning">Suggestions</h3>
+<div class="ligne wow animate__animated animate__fadeInUp"></div>
+<section class="container text-white text-center wow animate__animated animate__fadeInUp">
+    <h3 class=" my-5 text-warning">Suggestions</h3>
     <form class="" action="#suggestions" id="suggestions">
         <input type="text" name="search" class="form-control bg-white w-25 m-auto text-black" id="floatingInput" placeholder="Rechercher un animé"><br>
         <button type="submit" class="btn btn-warning text-white fw-bold my-3">Rechercher</button>
