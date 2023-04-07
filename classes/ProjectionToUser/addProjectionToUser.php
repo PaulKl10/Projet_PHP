@@ -40,6 +40,12 @@ class addProjectionToUser extends ProjectionToUser
         if ($IsExist !== false) {
             throw new AlreadyAddException();
         }
+        var_dump($user_id);
+        var_dump($projection_id);
+        echo "<br>";
+        echo $this->getNote();
+        echo "<br>";
+        echo "INSERT INTO L_Users_" . $this->getProjection() . " (user_id," . $this->getColumn() . ",note) VALUES (:user_id, :projection_id, :note)";
 
         $statement = $pdo->prepare("INSERT INTO L_Users_" . $this->getProjection() . " (user_id," . $this->getColumn() . ",note) VALUES (:user_id, :projection_id, :note)");
         $statement->execute([
