@@ -8,14 +8,14 @@ function uploadPic(array $file_upload, string $path): string
     $size = $file_upload['size'];
     $error = $file_upload['error'];
 
-    $tabExtension = explode('.', $name);
-    $extension = strtolower(end($tabExtension));
+    $extension = pathinfo($name, PATHINFO_EXTENSION);
+    $extension = strtolower($extension);
     //Tableau des extensions que l'on accepte
-    $extensions = ['jpg', 'png', 'jpeg', 'gif', 'webp'];
+    $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'webp'];
     //Taille max que l'on accepte
-    $maxSize = 400000;
+    $maxSize = 800000;
 
-    if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+    if (in_array($extension, $allowedExtensions) && $size <= $maxSize && $error == 0) {
 
         $uniqueName = uniqid('', true);
         //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086

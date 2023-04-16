@@ -1,11 +1,10 @@
 <?php
 require_once 'functions/redirect.php';
 require_once 'functions/uploadPic.php';
-require_once 'functions/showProjection.php';
 require_once 'functions/isConnected.php';
-require_once 'functions/showRank.php';
 require_once 'classes/projection/Serie.php';
 require_once 'classes/User.php';
+require_once 'classes/WatchProjection.php';
 
 
 isConnnected();
@@ -69,16 +68,24 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
         </div>
     </form>
     <?php
-    showRank('Series', 'serie_id'); ?>
+    $watch = new WatchProjection($_SESSION['id']);
+    $watch->showRank($watch::SERIE);
+    ?>
 </div>
-<div class="ligne"></div>
-<section class="container text-white text-center">
+<div class="ligne wow animate__animated animate__fadeInUp"></div>
+<section class="container text-white text-center wow animate__animated animate__fadeInUp">
     <h3 class="my-5 text-warning" id="suggestions">Suggestions</h3>
     <form class="" action="#suggestions">
         <input type="text" name="search" class="form-control bg-white w-25 m-auto text-black" id="floatingInput" placeholder="Rechercher une série"><br>
         <button type="submit" class="btn btn-warning text-white fw-bold my-3">Rechercher</button>
     </form>
-    <?php showProjection('Series') ?>
+    <?php
+    if (isset($_GET['search'])) {
+        $result = $_GET['search'];
+        $watch->showProjection($watch::SERIE, $result);
+    } else {
+        $watch->showProjection($watch::SERIE);
+    } ?>
 </section>
 <?php
 require_once 'layout/footer.php';

@@ -1,11 +1,10 @@
 <?php
 require_once 'functions/redirect.php';
 require_once 'functions/uploadPic.php';
-require_once 'functions/showProjection.php';
-require_once 'functions/showRank.php';
 require_once 'functions/isConnected.php';
 require_once 'classes/projection/Movie.php';
 require_once 'classes/User.php';
+require_once 'classes/WatchProjection.php';
 
 isConnnected();
 
@@ -64,17 +63,27 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
         <div class="text-center mt-4">
             <button type="submit" class="btn btn-warning text-white fw-bold mb-3">Ajouter le film</button>
         </div>
-    </form><?php
-            showRank('Films', 'film_id'); ?>
+    </form>
+    <div class="m-auto w-auto">
+        <?php
+        $watch = new WatchProjection($_SESSION['id']);
+        $watch->showRank($watch::MOVIE); ?>
+    </div>
 </div>
-<div class="ligne"></div>
-<section class="container text-white text-center">
-    <h3 class="my-5 text-warning" id="suggestions">Suggestions</h3>
-    <form class="" action="#suggestions">
+<div class="ligne wow animate__animated animate__fadeInUp"></div>
+<section class=" container text-white text-center">
+    <h3 class="my-5 text-warning wow animate__animated animate__fadeInUp" id="suggestions">Suggestions</h3>
+    <form class="wow animate__animated animate__fadeInUp" action="#suggestions">
         <input type="text" name="search" class="form-control bg-white w-25 m-auto text-black" id="floatingInput" placeholder="Rechercher un film"><br>
         <button type="submit" class="btn btn-warning text-white fw-bold mb-5">Rechercher</button>
     </form>
-    <?php showProjection('Films') ?>
+    <?php
+    if (isset($_GET['search'])) {
+        $result = $_GET['search'];
+        $watch->showProjection($watch::MOVIE, $result);
+    } else {
+        $watch->showProjection($watch::MOVIE);
+    } ?>
 </section>
 <?php
 require_once 'layout/footer.php';
