@@ -163,7 +163,7 @@ class WatchProjection
         <?php
         } else {
             $statement = $pdo->query("SELECT * FROM $table ORDER BY titre"); ?>
-            <div class="row row-cols-5 g-4 my-4">
+            <div class="row row-cols-3 row-cols-lg-5 g-4 my-4">
                 <?php
                 while ($row = $statement->fetch()) { ?>
                     <a class="wow animate__animated animate__fadeInUp" data-bs-toggle="modal" data-bs-target="#addprojection<?php echo $row['id'] ?>" style="text-decoration: none; cursor:pointer">

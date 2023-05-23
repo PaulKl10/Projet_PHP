@@ -33,8 +33,8 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
 <?php
 }
 ?>
-<div class="row row-cols-1 m-auto g-5">
-    <form action="" method="POST" enctype="multipart/form-data" class="d-flex flex-column justify-content-center align-items-center gap-3">
+<div class="row row-cols-1 m-auto g-5 flex-column">
+    <form action="" method="POST" enctype="multipart/form-data" class="d-flex flex-column justify-content-center align-items-center gap-3 col col-lg-4 m-auto">
         <div class="w-75 w-lg-25">
             <label class="text-warning" for="picture_file">Choisir une photo</label>
             <input required type="file" class="form-control" id="picture_file" name="file">

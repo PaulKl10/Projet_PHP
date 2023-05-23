@@ -30,8 +30,8 @@ if (isset($_GET['success'])) { ?>
 <?php
 }
 ?>
-<div class="w-100 w-md-50 px-5 m-auto mt-5">
-    <form action="login.php" method="POST">
+<div class="px-5 m-auto mt-5">
+    <form action="login.php" method="POST" class="col col-lg-4 m-auto">
         <div class="form-floating mb-3">
             <input type="text" name="pseudo" class="form-control bg-black text-white" id="floatingInput" placeholder="Pseudo">
             <label class="text-warning" for="floatingInput">Pseudo</label>
