@@ -12,13 +12,13 @@ require_once __DIR__ . '/../classes/WatchProjection.php';
         <?php $watch->showProjectionToUser($watch::MOVIE) ?>
         <a class="wow animate__animated animate__fadeInUp" href="movies.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
-    <div class="col">
+    <div class="col mt-5 mt-md-0">
         <h3>Series</h3>
         <h5><?php echo $watch->counter($watch::SERIE); ?></h5>
         <?php $watch->showProjectionToUser($watch::SERIE) ?>
         <a class="wow animate__animated animate__fadeInUp" href="series.php"><img class="img-fluid rounded-circle w-25" src="assets/images/add-icon.png" alt="add icon"></a>
     </div>
-    <div class="col">
+    <div class="col mt-5 mt-md-0">
         <h3>Animes</h3>
         <h5><?php echo $watch->counter($watch::ANIME); ?></h5>
         <?php $watch->showProjectionToUser($watch::ANIME) ?>

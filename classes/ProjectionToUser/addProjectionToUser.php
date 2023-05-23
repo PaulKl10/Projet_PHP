@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/ProjectionToUser.php';
 require_once __DIR__ . '/../Exception/ProjectionException/AlreadyAddException.php';
+require_once __DIR__ . '/../../functions/redirect.php';
 class addProjectionToUser extends ProjectionToUser
 {
     private int $note;
@@ -40,12 +41,6 @@ class addProjectionToUser extends ProjectionToUser
         if ($IsExist !== false) {
             throw new AlreadyAddException();
         }
-        var_dump($user_id);
-        var_dump($projection_id);
-        echo "<br>";
-        echo $this->getNote();
-        echo "<br>";
-        echo "INSERT INTO L_Users_" . $this->getProjection() . " (user_id," . $this->getColumn() . ",note) VALUES (:user_id, :projection_id, :note)";
 
         $statement = $pdo->prepare("INSERT INTO L_Users_" . $this->getProjection() . " (user_id," . $this->getColumn() . ",note) VALUES (:user_id, :projection_id, :note)");
         $statement->execute([
@@ -53,7 +48,6 @@ class addProjectionToUser extends ProjectionToUser
             'projection_id' => $projection_id['id'],
             'note' => $this->getNote()
         ]);
-
         redirect('dashboard.php?success=1');
     }
 }

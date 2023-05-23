@@ -1,10 +1,11 @@
 <?php
 require_once 'layout/header.php';
 require_once 'classes/Exception/UserError.php';
+ini_set('display_errors', 'on');
 ?>
 
 
-<h1 class="text-center text-warning mt-5">Bienvenue sur Oh my count</h1>
+<h1 class="text-center text-warning mt-5">Bienvenue sur Oh my Show</h1>
 <p class="text-center text-warning mt-4">Une application web permettant de recenser tous vos films, séries et animés !</p>
 <?php
 if (isset($_GET['error'])) { ?>
@@ -29,7 +30,7 @@ if (isset($_GET['success'])) { ?>
 <?php
 }
 ?>
-<div class="w-50 px-5 m-auto mt-5">
+<div class="w-100 w-md-50 px-5 m-auto mt-5">
     <form action="login.php" method="POST">
         <div class="form-floating mb-3">
             <input type="text" name="pseudo" class="form-control bg-black text-white" id="floatingInput" placeholder="Pseudo">
@@ -46,7 +47,7 @@ if (isset($_GET['success'])) { ?>
     <!-- Button trigger modal -->
     <div class="m-auto d_block text-center">
         <a type="button" class="text-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Pas encore inscris ?
+            Pas encore inscrit ?
         </a>
     </div>
 

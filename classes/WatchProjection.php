@@ -56,15 +56,15 @@ class WatchProjection
         } else {
             require __DIR__ . '/../data/bdd_link.php';
             $statement = $pdo->prepare("SELECT CONCAT(FLOOR(SUM(duree)/1440),'j ', FLOOR(MOD(SUM(duree),1440)/60),'h ',MOD(MOD(SUM(duree),1440),60),'m') AS total_formatted FROM (
-                                    SELECT duree FROM L_users_series JOIN series ON serie_id = series.id 
+                                    SELECT duree FROM L_Users_Series JOIN Series ON serie_id = Series.id 
                                                                     JOIN Users ON user_id = Users.id 
                                     WHERE user_id = :id
                                     UNION ALL
-                                    SELECT duree FROM L_users_films JOIN films ON film_id = films.id 
+                                    SELECT duree FROM L_Users_Films JOIN Films ON film_id = Films.id 
                                                                     JOIN Users ON user_id = Users.id 
                                     WHERE user_id = :id
                                     UNION ALL
-                                    SELECT duree FROM L_users_animes JOIN animes ON anime_id = animes.id 
+                                    SELECT duree FROM L_Users_Animes JOIN Animes ON anime_id = Animes.id 
                                                                     JOIN Users ON user_id = Users.id 
                                     WHERE user_id = :id
                                 ) AS total_duration_minutes");
@@ -146,7 +146,7 @@ class WatchProjection
             $statement->execute([
                 'search' => $search
             ]); ?>
-            <div class="row row-cols-5 g-4 my-4">
+            <div class="row row-cols-3 row-cols-lg-5 g-4 my-4">
                 <?php
                 while ($row = $statement->fetch()) { ?>
                     <a class="wow animate__animated animate__fadeInUp" data-bs-toggle="modal" data-bs-target="#addprojection<?php echo $row['id'] ?>" style="text-decoration: none; cursor:pointer">

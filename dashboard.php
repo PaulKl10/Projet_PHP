@@ -3,7 +3,7 @@ require_once 'functions/redirect.php';
 require_once 'functions/isConnected.php';
 require_once 'classes/Exception/ProjectionException/ProjectionException.php';
 require_once 'classes/Exception/ProjectionError.php';
-
+ini_set('display_errors', 'on');
 
 isConnnected();
 
@@ -47,7 +47,7 @@ if (isset($_GET['success'])) { ?>
 <?php
 }
 ?>
-<section class="text-white row">
+<section class="text-white row w-100">
     <div class="col">
         <div class="gap-4 d-flex flex-column justify-content-center align-items-center ms-auto" style="width:200px">
             <?php

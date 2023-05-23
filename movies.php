@@ -5,6 +5,7 @@ require_once 'functions/isConnected.php';
 require_once 'classes/projection/Movie.php';
 require_once 'classes/User.php';
 require_once 'classes/WatchProjection.php';
+ini_set('display_errors', 'on');
 
 isConnnected();
 
@@ -20,6 +21,7 @@ if (isset($_FILES['file'])) {
     $note = intVal($_POST['note']);
     $movie = new Movie($titre, $photo, $duree, $note, new User($_SESSION['pseudo']));
     $movie->addToBdd();
+    redirect('dashboard.php?success=1');
 }
 
 require_once 'layout/header.php';
@@ -27,7 +29,7 @@ require_once 'layout/header.php';
 
 
 <h1 class="text-warning text-center my-5">Movies</h1>
-<p class="text-center w-50 mb-3 m-auto fs-3 text-warning">Ajouter un film à votre compte grâce à ce formulaire si il n'est pas encore enregistré sur notre site !<br> <a class="text-danger text-decoration-none" href="#suggestions">Voir suggestions en dessous</a href="#suggestions"></p>
+<p class="text-center w-75 w-lg-50 mb-3 m-auto fs-3 text-warning">Ajouter un film à votre compte grâce à ce formulaire si il n'est pas encore enregistré sur notre site !<br> <a class="text-danger text-decoration-none" href="#suggestions">Voir suggestions en dessous</a href="#suggestions"></p>
 <?php
 if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
     <div class="alert alert-danger w-50 m-auto text-center">Le film est déjà enregistré sur notre site, regardez les suggestions pour l'ajouter à votre compte </div>
@@ -36,19 +38,19 @@ if (!empty($_GET['error']) && $_GET['error'] === '1') { ?>
 ?>
 <div class="row row-cols-1 mb-4 m-auto g-5">
     <form action="" method="POST" enctype="multipart/form-data" class="d-flex flex-column justify-content-center align-items-center gap-3">
-        <div class="w-25">
+        <div class="w-75 w-lg-25">
             <label class="text-warning" for="picture_file">Choisir une photo</label>
             <input required type="file" class="form-control" id="picture_file" name="file">
         </div>
-        <div class="w-25">
+        <div class="w-75 w-lg-25">
             <label class="text-warning" for="titre">Titre du film</label>
             <input required type="text" class="form-control" id="titre" name="titre">
         </div>
-        <div class="w-25">
+        <div class="w-75 w-lg-25">
             <label class="text-warning" for="duree">Durée du film (en min)</label>
             <input required type="text" class="form-control" id="duree" name="duree">
         </div>
-        <div class="w-25">
+        <div class="w-75 w-lg-25">
             <label class="text-warning" for="note">Note</label>
             <select class="form-select" name="note" aria-label="Default select example">
                 <option selected>Note sur 5 étoiles</option>
